@@ -9,7 +9,7 @@ class ItemTest < Minitest::Test
     @item_name = "DesignerEstore"
     @item_description = "Disney glitter frames"
     @item_merchant_id = 12334141
-    @item = Item.new(@item_id, @item_name, @item_description, @item_merchant_id)
+    @item = Item.new({:id => @item_id, :name => @item_name, :description => @item_description, :merchant_id => @item_merchant_id})
   end
 
   def test_it_has_an_id

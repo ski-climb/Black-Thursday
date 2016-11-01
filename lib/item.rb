@@ -5,11 +5,11 @@ class Item
               :description,
               :merchant_id
 
-  def initialize(id, name, description, merchant_id)
-    @id = id
-    @name = name
-    @description = description
-    @merchant_id = merchant_id
+  def initialize(data)
+    @id = data[:id]
+    @name = data[:name]
+    @description = data[:description]
+    @merchant_id = data[:merchant_id]
   end
 
 end
