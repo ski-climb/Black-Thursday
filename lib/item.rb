@@ -16,9 +16,13 @@ class Item
     @name = data[:name]
     @description = data[:description]
     @merchant_id = data[:merchant_id]
-    @unit_price = BigDecimal.new(data[:unit_price], 4) / BigDecimal.new(100)
+    @unit_price = BigDecimal.new(data[:unit_price], 4)
     @created_at = Chronic.parse(data[:created_at])
     @updated_at = Chronic.parse(data[:updated_at])
+  end
+
+  def unit_price_to_dollars
+    (unit_price / BigDecimal(100)).to_f
   end
 
 end
