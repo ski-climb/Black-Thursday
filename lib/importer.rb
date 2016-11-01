@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/merchant'
+require './lib/item'
 
 class Importer
   attr_reader :path_and_filename,
@@ -15,17 +16,21 @@ class Importer
     return repository
   end
 
+  def import_items
+    add_items_to_repository(read_file)
+    return repository
+  end
+
   def read_file
-    CSV.open(path_and_filename, headers: true, header_converters: :symbol)
+    CSV.open(path_and_filename,
+             headers: true,
+             header_converters: :symbol)
   end
 
   def create_merchant(row)
-    id   = row[:id]
-    name = row[:name]
     merchant = Merchant.new(
-      :id   => id,
-      :name => name)
-    return merchant
+      :id   => row[:id],
+      :name => row[:name])
   end
 
   def add_merchants_to_repository(contents)
@@ -33,5 +38,20 @@ class Importer
       merchant = create_merchant(row)
       repository << merchant
     end
+  end
+
+  def add_items_to_repository(contents)
+    contents.each do |row|
+      item = create_item(row)
+      repository << item
+    end
+  end
+
+  def create_item(row)
+    item = Item.new(
+      :id          => row[:id],
+      :name        => row[:name],
+      :description => row[:description],
+      :merchant_id => row[:merchant_id])
   end
 end

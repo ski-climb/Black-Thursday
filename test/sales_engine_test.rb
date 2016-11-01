@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_engine'
 require './lib/merchant_repository'
+require './lib/item_repository'
 
 class SalesEngineTest < Minitest::Test
 
@@ -33,5 +34,20 @@ class SalesEngineTest < Minitest::Test
     })
     assert_equal number_of_merchants_in_file, sales_engine.merchants.all.length
     assert sales_engine.merchants.find_by_name("VectorCoast")
+  end
+
+  def test_it_returns_an_item_repo
+    path_and_filename = './test/fixtures/item_fixture.csv'
+    sales_engine = SalesEngine.from_csv({:items => path_and_filename})
+    assert_instance_of ItemRepository, sales_engine.items
+  end
+
+  def test_it_can_create_items_for_each_line_of_the_csv
+    number_of_items_in_file = 5
+    sales_engine = SalesEngine.from_csv({
+      :items => './test/fixtures/item_fixture.csv'
+    })
+    assert_equal number_of_items_in_file, sales_engine.items.all.length
+    assert sales_engine.items.find_by_name("Anello nodo")
   end
 end

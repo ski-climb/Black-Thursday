@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/importer'
 require './lib/merchant_repository'
+require './lib/item_repository'
 
 class ImporterTest < Minitest::Test
 
@@ -27,6 +28,17 @@ class ImporterTest < Minitest::Test
     importer = Importer.new(path_and_filename, merchant_repository)
     importer.import_merchants
     assert_equal number_of_merchants_in_file, merchant_repository.all.length
+    assert merchant_repository.all.map(&:name).include?("VectorCoast")
+  end
+
+  def test_it_imports_items
+    item_repository = ItemRepository.new
+    number_of_items_in_file = 5
+    path_and_filename = './test/fixtures/item_fixture.csv'
+    importer = Importer.new(path_and_filename, item_repository)
+    importer.import_items
+    assert_equal number_of_items_in_file, item_repository.all.length
+    assert item_repository.all.map(&:name).include?("Anello nodo")
   end
 end
 
