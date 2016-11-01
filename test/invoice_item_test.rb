@@ -17,19 +17,19 @@ class InvoiceItemTest < Minitest::Test
     })
   end
 
-  def test_it_has_an_id
+  def test_invoice_item_has_an_id
     assert_equal @invoice_item_id, @invoice_item.id
   end
 
-  def test_it_has_an_item_id
+  def test_invoice_item_has_an_item_id
     assert_equal @invoice_item_item_id, @invoice_item.item_id
   end
 
-  def test_it_has_an_invoice_id
+  def test_invoice_item_has_an_invoice_id
     assert_equal @invoice_item_invoice_id, @invoice_item.invoice_id
   end
 
-  def test_it_has_a_quantity
+  def test_invoice_item_has_a_quantity
     assert_equal @invoice_item_quantity, @invoice_item.quantity
   end
 
