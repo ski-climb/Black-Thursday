@@ -28,3 +28,8 @@ class MerchantRepository
   end
 
 end
+
+
+
+
+
