@@ -1,6 +1,3 @@
-require 'csv'
-require './lib/merchant_repository'
-require './lib/item_repository'
 require './lib/importer'
 
 class SalesEngine
@@ -20,9 +17,13 @@ class SalesEngine
 
   def self.from_csv(data)
     create_repositories
+    import(data)
+    self
+  end
+
+  def self.import(data)
     import_merchants(data[:merchants]) if data[:merchants]
     import_items(data[:items]) if data[:items]
-    self
   end
 
   def self.import_merchants(path_and_filename)
