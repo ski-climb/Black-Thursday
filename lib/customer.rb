@@ -15,5 +15,4 @@ class Customer
     @created_at = Chronic.parse(data[:created_at])
     @updated_at = Chronic.parse(data[:updated_at])
   end
-
 end
