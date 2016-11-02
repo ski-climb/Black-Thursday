@@ -60,8 +60,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_import_the_provided_file_for_items
-    skip
-    # skipped for speed!
+    skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items => './data/items.csv'
     })

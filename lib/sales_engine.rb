@@ -1,3 +1,5 @@
+require './lib/merchant_repository'
+require './lib/item_repository'
 require './lib/importer'
 
 class SalesEngine
