@@ -11,19 +11,28 @@ class ItemRepositoryTest < Minitest::Test
       :id => 1,
       :name => "King Soopers",
       :description => "Some place to get food",
-      :merchant_id => 1001
+      :merchant_id => 1001,
+      :unit_price => 1200,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     @item_2 = Item.new(
       :id => 2,
       :name => "Whole Foods",
       :description => "Or is it Whole Paycheck",
-      :merchant_id => 1002
+      :merchant_id => 1002,
+      :unit_price => 2400,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     @item_3 = Item.new(
       :id => 3,
       :name => "Subway",
       :description => "Eat Fresh",
-      :merchant_id => 1003
+      :merchant_id => 1003,
+      :unit_price => 3600,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     @item_repository << @item_1
     @item_repository << @item_2
@@ -71,13 +80,19 @@ class ItemRepositoryTest < Minitest::Test
       :id => 4,
       :name => "Domino's Pizza",
       :description => "Another pizza place",
-      :merchant_id => 1004
+      :merchant_id => 1004,
+      :unit_price => 3456,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     item_5 = Item.new(
       :id => 5,
       :name => "Pizza Hut",
       :description => "Something about The Hut and pizza",
-      :merchant_id => 1005
+      :merchant_id => 1005,
+      :unit_price => 2345,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     @item_repository.all << item_4
     @item_repository.all << item_5
@@ -91,13 +106,19 @@ class ItemRepositoryTest < Minitest::Test
       :id => 4,
       :name => "Domino's Pizza",
       :description => "Another pizza place",
-      :merchant_id => 1004
+      :merchant_id => 1004,
+      :unit_price => 1234,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     item_5 = Item.new(
       :id => 5,
       :name => "Pizza Hut",
       :description => "Something about The Hut and pizza",
-      :merchant_id => 1005
+      :merchant_id => 1005,
+      :unit_price => 1234,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     @item_repository.all << item_4
     @item_repository.all << item_5
@@ -123,7 +144,10 @@ class ItemRepositoryTest < Minitest::Test
       :id => 5,
       :name => "Pizza Hut",
       :description => "Something about The Hut and pizza",
-      :merchant_id => 1002
+      :merchant_id => 1002,
+      :unit_price => 1234,
+      :created_at => '2013-03-27 14:54:09 UTC',
+      :updated_at => '2011-02-22 15:24:19 UTC'
     )
     @item_repository << item_5
     results = @item_repository.find_all_by_merchant_id(1002)
