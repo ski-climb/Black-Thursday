@@ -50,4 +50,22 @@ class SalesEngineTest < Minitest::Test
     assert_equal number_of_items_in_file, sales_engine.items.all.length
     assert sales_engine.items.find_by_name("Anello nodo")
   end
+
+  def test_it_can_import_the_provided_file_for_merchants
+    sales_engine = SalesEngine.from_csv({
+      :merchants => './data/merchants.csv'
+    })
+    assert_equal 475, sales_engine.merchants.all.length
+    assert sales_engine.merchants.all.map(&:name).include?('Woodenpenshop')
+  end
+
+  def test_it_can_import_the_provided_file_for_items
+    skip
+    # skipped for speed!
+    sales_engine = SalesEngine.from_csv({
+      :items => './data/items.csv'
+    })
+    assert_equal 1367, sales_engine.items.all.length
+    assert sales_engine.items.all.map(&:name).include?('wooden finger protection')
+  end
 end

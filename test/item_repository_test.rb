@@ -21,7 +21,7 @@ class ItemRepositoryTest < Minitest::Test
       :name => "Whole Foods",
       :description => "Or is it Whole Paycheck",
       :merchant_id => 1002,
-      :unit_price => 2400,
+      :unit_price => 1200,
       :created_at => '2013-03-27 14:54:09 UTC',
       :updated_at => '2011-02-22 15:24:19 UTC'
     )
@@ -157,5 +157,38 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_merchant_id_returns_nil_when_no_items_have_given_merchant_id
     assert_equal [], @item_repository.find_all_by_merchant_id(12)
+  end
+
+  def test_find_all_by_price_returns_an_empty_array_when_no_items_match_price
+    assert_equal [], @item_repository.find_all_by_price(1_000)
+  end
+
+  def test_find_all_by_price_returns_all_items_which_match_the_price
+    results = @item_repository.find_all_by_price(12)
+    assert results.map(&:name).include?("King Soopers")
+    assert results.map(&:name).include?("Whole Foods")
+  end
+
+  def test_find_all_by_price_in_range_returns_all_items_with_prices_in_range
+    item_4 = Item.new(
+      :id => 4,
+      :name => "Pizza Hut",
+      :description => "Something about The Hut and pizza",
+      :merchant_id => 1002,
+      :unit_price => 1234,
+      :created_at => '2013-03-27 14:44:09 UTC',
+      :updated_at => '2011-02-22 14:24:19 UTC'
+    )
+    @item_repository << item_4
+    results = @item_repository.find_all_by_price_in_range(12..13)
+    assert results.map(&:name).include?("King Soopers")
+    assert results.map(&:name).include?("Whole Foods")
+    assert results.map(&:name).include?("Pizza Hut")
+    refute results.map(&:name).include?("Subway")
+  end
+
+  def test_find_all_by_price_in_range_returns_empty_array_when_no_prices_in_range
+    results = @item_repository.find_all_by_price_in_range(1_000_000..1_000_000_000)
+    assert [], results
   end
 end
