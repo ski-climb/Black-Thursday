@@ -4,7 +4,7 @@ class Merchant
               :name
 
   def initialize(data)
-    @id = data[:id]
+    @id = data[:id].to_s
     @name = data[:name]
   end
 

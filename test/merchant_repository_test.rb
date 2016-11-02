@@ -32,7 +32,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchants_can_be_found_by_id
-    assert_equal 2, @merchant_repository.find_by_id(2).id
+    assert_equal '2', @merchant_repository.find_by_id(2).id
   end
 
   def test_find_by_id_returns_nil_when_no_merchants_have_given_id

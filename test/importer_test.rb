@@ -33,7 +33,7 @@ class ImporterTest < Minitest::Test
 
   def test_it_imports_items
     item_repository = ItemRepository.new
-    number_of_items_in_file = 5
+    number_of_items_in_file = 11
     path_and_filename = './test/fixtures/item_fixture.csv'
     importer = Importer.new(path_and_filename, item_repository)
     importer.import_items

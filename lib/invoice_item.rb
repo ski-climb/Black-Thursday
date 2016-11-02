@@ -12,9 +12,9 @@ class InvoiceItem
               :updated_at
 
   def initialize(data)
-    @id = data[:id]
-    @item_id = data[:item_id]
-    @invoice_id = data[:invoice_id]
+    @id = data[:id].to_s
+    @item_id = data[:item_id].to_s
+    @invoice_id = data[:invoice_id].to_s
     @quantity = data[:quantity]
     @unit_price = BigDecimal.new(data[:unit_price], 4)
     @created_at = Chronic.parse(data[:created_at])

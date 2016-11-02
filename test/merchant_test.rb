@@ -11,7 +11,7 @@ class MerchantTest < Minitest::Test
       :id => merchant_id,
       :name => merchant_name
     })
-    assert_equal merchant_id, m.id
+    assert_equal merchant_id.to_s, m.id
   end
 
   def test_merchants_have_names
@@ -22,6 +22,11 @@ class MerchantTest < Minitest::Test
       :name => merchant_name
     })
     assert_equal merchant_name, m.name
+  end
+
+  def test_merchants_know_which_items_they_sell
+    skip
+    # insert mock for salesengine.find_items_by_merchant_id here
   end
 
 end

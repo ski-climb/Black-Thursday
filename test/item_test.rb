@@ -24,7 +24,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_an_id
-    assert_equal @item_id, @item.id
+    assert_equal @item_id.to_s, @item.id
   end
 
   def test_it_has_a_name
@@ -36,7 +36,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_merchant_id
-    assert_equal @item_merchant_id, @item.merchant_id
+    assert_equal @item_merchant_id.to_s, @item.merchant_id
   end
 
   def test_it_has_a_unit_price

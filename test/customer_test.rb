@@ -20,7 +20,7 @@ class CustomerTest < Minitest::Test
   end
 
   def test_customer_has_an_id
-    assert_equal @customer_id, @customer.id
+    assert_equal @customer_id.to_s, @customer.id
   end
 
   def test_customer_has_a_first_name

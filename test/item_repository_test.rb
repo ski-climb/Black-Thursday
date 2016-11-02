@@ -56,7 +56,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_items_can_be_found_by_id
-    assert_equal 2, @item_repository.find_by_id(2).id
+    assert_equal '2', @item_repository.find_by_id(2).id
   end
 
   def test_find_by_id_returns_nil_when_no_items_have_given_id
@@ -136,7 +136,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_an_item_can_be_found_by_merchant_id
-    assert_equal [1002], @item_repository.find_all_by_merchant_id(1002).map(&:merchant_id)
+    assert_equal ['1002'], @item_repository.find_all_by_merchant_id(1002).map(&:merchant_id)
   end
 
   def test_find_all_by_mechant_id_returns_all_items_with_that_merchant_id

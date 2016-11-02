@@ -43,11 +43,30 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_create_items_for_each_line_of_the_csv
-    number_of_items_in_file = 5
+    number_of_items_in_file = 11
     sales_engine = SalesEngine.from_csv({
       :items => './test/fixtures/item_fixture.csv'
     })
     assert_equal number_of_items_in_file, sales_engine.items.all.length
     assert sales_engine.items.find_by_name("Anello nodo")
+  end
+
+  def test_it_can_find_items_by_merchant_id
+    merchant_id = 12341234
+    sales_engine = SalesEngine.from_csv({
+      :items => './test/fixtures/item_fixture.csv'
+    })
+    results = sales_engine.find_items_by_merchant_id(merchant_id)
+    assert_equal 6, results.length
+  end
+
+  def test_find_items_by_id_only_returns_items_for_specified_merchant
+    merchant_id = 12341234
+    sales_engine = SalesEngine.from_csv({
+      :items => './test/fixtures/item_fixture.csv'
+    })
+    results = sales_engine.find_items_by_merchant_id(merchant_id)
+    assert_equal 1, results.map(&:merchant_id).uniq.length
+    assert_equal merchant_id.to_s, results.map(&:merchant_id).uniq.first
   end
 end
