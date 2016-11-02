@@ -4,24 +4,29 @@ require './lib/merchant'
 
 class MerchantTest < Minitest::Test
 
-  def test_merchants_have_ids
+  def setup
     merchant_id = 12345678
     merchant_name = "IronCompassFlight"
-    m = Merchant.new({
+    @merchant = Merchant.new({
       :id => merchant_id,
       :name => merchant_name
     })
-    assert_equal merchant_id, m.id
+  end
+
+  def test_merchants_have_ids
+    assert_equal '12345678', @merchant.id
   end
 
   def test_merchants_have_names
-    merchant_id = 12345678
-    merchant_name = "IronCompassFlight"
-    m = Merchant.new({
-      :id => merchant_id,
-      :name => merchant_name
-    })
-    assert_equal merchant_name, m.name
+    assert_equal "IronCompassFlight", @merchant.name
+  end
+
+  def test_merchants_know_which_items_they_sell
+    skip
+    sales_engine = Minitest::Mock.new
+    sales_engine.expect(:find_items_by_merchant_id, [], [12])
+    @merchant.items
+    sales_engine.verify
   end
 
 end

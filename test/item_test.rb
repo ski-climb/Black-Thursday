@@ -5,38 +5,38 @@ require './lib/item'
 class ItemTest < Minitest::Test
 
   def setup
-    @item_id = 12345678
-    @item_name = "DesignerEstore"
-    @item_description = "Disney glitter frames"
-    @item_merchant_id = 12334141
-    @item_unit_price = 7500
-    @item_created_at = '2013-03-27 14:54:09 UTC'
-    @item_updated_at = '2012-02-26 20:56:56 UTC'
+    item_id = 12345678
+    item_name = "DesignerEstore"
+    item_description = "Disney glitter frames"
+    item_merchant_id = 12334141
+    item_unit_price = 7500
+    item_created_at = '2013-03-27 14:54:09 UTC'
+    item_updated_at = '2012-02-26 20:56:56 UTC'
     @item = Item.new({
-      :id => @item_id,
-      :name => @item_name,
-      :description => @item_description,
-      :merchant_id => @item_merchant_id,
-      :unit_price => @item_unit_price,
-      :created_at => @item_created_at,
-      :updated_at => @item_updated_at
+      :id => item_id,
+      :name => item_name,
+      :description => item_description,
+      :merchant_id => item_merchant_id,
+      :unit_price => item_unit_price,
+      :created_at => item_created_at,
+      :updated_at => item_updated_at
     })
   end
 
   def test_it_has_an_id
-    assert_equal @item_id, @item.id
+    assert_equal '12345678', @item.id
   end
 
   def test_it_has_a_name
-    assert_equal @item_name, @item.name
+    assert_equal "DesignerEstore", @item.name
   end
 
   def test_it_has_a_description
-    assert_equal @item_description, @item.description
+    assert_equal "Disney glitter frames", @item.description
   end
 
   def test_it_has_a_merchant_id
-    assert_equal @item_merchant_id, @item.merchant_id
+    assert_equal "12334141", @item.merchant_id
   end
 
   def test_it_has_a_unit_price

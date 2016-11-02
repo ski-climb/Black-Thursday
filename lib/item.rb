@@ -12,10 +12,10 @@ class Item
               :updated_at
 
   def initialize(data)
-    @id = data[:id]
+    @id = data[:id].to_s
     @name = data[:name]
     @description = data[:description]
-    @merchant_id = data[:merchant_id]
+    @merchant_id = data[:merchant_id].to_s
     @unit_price = BigDecimal.new(data[:unit_price], 4)
     @created_at = Chronic.parse(data[:created_at])
     @updated_at = Chronic.parse(data[:updated_at])

@@ -7,12 +7,12 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     @merchant_repository = MerchantRepository.new
-    @merchant_1 = Merchant.new(:id => 1, :name => "King Soopers")
-    @merchant_2 = Merchant.new(:id => 2, :name => "Whole Foods")
-    @merchant_3 = Merchant.new(:id => 3, :name => "Subway")
-    @merchant_repository << @merchant_1
-    @merchant_repository << @merchant_2
-    @merchant_repository << @merchant_3
+    merchant_1 = Merchant.new(:id => 1, :name => "King Soopers")
+    merchant_2 = Merchant.new(:id => 2, :name => "Whole Foods")
+    merchant_3 = Merchant.new(:id => 3, :name => "Subway")
+    @merchant_repository << merchant_1
+    @merchant_repository << merchant_2
+    @merchant_repository << merchant_3
   end
 
   def test_it_exists
@@ -32,7 +32,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchants_can_be_found_by_id
-    assert_equal 2, @merchant_repository.find_by_id(2).id
+    assert_equal '2', @merchant_repository.find_by_id(2).id
   end
 
   def test_find_by_id_returns_nil_when_no_merchants_have_given_id
