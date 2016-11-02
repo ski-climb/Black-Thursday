@@ -27,15 +27,19 @@ class SalesEngine
   end
 
   def self.import_merchants(path_and_filename)
-    Importer.new(path_and_filename, @all_merchants).import_merchants
+    Importer.new(path_and_filename, @all_merchants, self).import_merchants
   end
 
   def self.import_items(path_and_filename)
-    Importer.new(path_and_filename, @all_items).import_items
+    Importer.new(path_and_filename, @all_items, self).import_items
   end
 
   def self.find_items_by_merchant_id(id)
     items.find_all_by_merchant_id(id)
+  end
+
+  def self.find_merchant_by_item_id(id)
+    merchants.find_by_id(id)
   end
 end
 

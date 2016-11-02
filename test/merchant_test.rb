@@ -7,9 +7,11 @@ class MerchantTest < Minitest::Test
   def setup
     merchant_id = 12345678
     merchant_name = "IronCompassFlight"
+    sales_engine = SalesEngine
     @merchant = Merchant.new({
       :id => merchant_id,
-      :name => merchant_name
+      :name => merchant_name,
+      :sales_engine => sales_engine
     })
   end
 
@@ -21,12 +23,11 @@ class MerchantTest < Minitest::Test
     assert_equal "IronCompassFlight", @merchant.name
   end
 
-  def test_merchants_know_which_items_they_sell
-    skip
-    sales_engine = Minitest::Mock.new
-    sales_engine.expect(:find_items_by_merchant_id, [], [12])
-    @merchant.items
-    sales_engine.verify
+  def test_merchants_point_to_the_sales_engine
+    assert_kind_of Class, @merchant.sales_engine
   end
 
+  def test_merchants_respond_to_items_method
+    assert_respond_to @merchant, :items
+  end
 end

@@ -12,6 +12,7 @@ class ItemTest < Minitest::Test
     item_unit_price = 7500
     item_created_at = '2013-03-27 14:54:09 UTC'
     item_updated_at = '2012-02-26 20:56:56 UTC'
+    sales_engine = SalesEngine
     @item = Item.new({
       :id => item_id,
       :name => item_name,
@@ -19,7 +20,8 @@ class ItemTest < Minitest::Test
       :merchant_id => item_merchant_id,
       :unit_price => item_unit_price,
       :created_at => item_created_at,
-      :updated_at => item_updated_at
+      :updated_at => item_updated_at,
+      :sales_engine => sales_engine
     })
   end
 
@@ -63,5 +65,13 @@ class ItemTest < Minitest::Test
 
   def test_unit_price_to_dollars_is_a_float
     assert_instance_of Float, @item.unit_price_to_dollars
+  end
+
+  def test_items_point_to_sales_engine
+    assert_kind_of Class, @item.sales_engine
+  end
+
+  def test_items_respond_to_merchant_method
+    assert_respond_to @item, :merchant
   end
 end
