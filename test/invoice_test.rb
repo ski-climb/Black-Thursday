@@ -9,11 +9,15 @@ class InvoiceTest < Minitest::Test
     @invoice_customer_id = 7
     @invoice_merchant_id = 8
     @invoice_status = "pending"
+    @invoice_created_at = '2013-03-27 14:54:09 UTC'
+    @invoice_updated_at = '2012-02-26 20:56:56 UTC'
     @invoice = Invoice.new({
       :id => @invoice_id,
       :customer_id => @invoice_customer_id,
       :merchant_id => @invoice_merchant_id,
-      :status => @invoice_status
+      :status => @invoice_status,
+      :created_at => @invoice_created_at,
+      :updated_at => @invoice_updated_at
     })
   end
 
@@ -33,4 +37,13 @@ class InvoiceTest < Minitest::Test
     assert_equal @invoice_status, @invoice.status
   end
 
+  def test_it_has_a_created_at
+    created_at = Time.gm(2013, 3, 27, 14, 54, 9)
+    assert_equal created_at, @invoice.created_at
+  end
+
+  def test_it_has_a_updated_at
+    updated_at = Time.gm(2012, 2, 26, 20, 56, 56)
+    assert_equal updated_at, @invoice.updated_at
+  end
 end
