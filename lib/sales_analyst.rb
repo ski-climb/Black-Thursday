@@ -25,6 +25,14 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(id)
+    merchant = sales_engine.merchants.find_by_id(id)
+    number_of_items = merchant.items.length
+    price_of_all_items = merchant.items.map(&:unit_price).reduce(:+) / 100
+    result = price_of_all_items / number_of_items
+    return result
+  end
+
   def total_number_of_items
     sales_engine.items.all.length
   end

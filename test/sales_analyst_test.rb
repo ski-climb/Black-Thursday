@@ -47,7 +47,7 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(sales_engine)
     assert_equal 3.26, analyst.average_items_per_merchant_standard_deviation
   end
-  
+
   def test_it_calculates_merchants_with_high_item_count
     sales_engine = SalesEngine.from_csv({
       :items =>     './test/fixtures/item_fixture.csv',
@@ -66,5 +66,16 @@ class SalesAnalystTest < Minitest::Test
     })
     analyst = SalesAnalyst.new(sales_engine)
     assert_equal 52, analyst.merchants_with_high_item_count.length
+  end
+
+  def test_it_calculates_average_item_price_for_merchant
+    merchant_id = 12341234
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './test/fixtures/item_fixture.csv',
+      :merchants => './test/fixtures/merchant_fixture.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 139.0, analyst.average_item_price_for_merchant(merchant_id)
+    assert_instance_of BigDecimal, analyst.average_item_price_for_merchant(merchant_id)
   end
 end
