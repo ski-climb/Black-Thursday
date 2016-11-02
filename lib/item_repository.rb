@@ -32,4 +32,16 @@ class ItemRepository
       item.merchant_id == id
     end
   end
+
+  def find_all_by_price(price)
+    all.find_all do |item|
+      item.unit_price_to_dollars == price
+    end
+  end
+
+  def find_all_by_price_in_range(price_range)
+    all.find_all do |item|
+      price_range.include?(item.unit_price_to_dollars)
+    end
+  end
 end
