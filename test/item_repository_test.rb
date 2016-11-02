@@ -186,4 +186,9 @@ class ItemRepositoryTest < Minitest::Test
     assert results.map(&:name).include?("Pizza Hut")
     refute results.map(&:name).include?("Subway")
   end
+
+  def test_find_all_by_price_in_range_returns_empty_array_when_no_prices_in_range
+    results = @item_repository.find_all_by_price_in_range(1_000_000..1_000_000_000)
+    assert [], results
+  end
 end
