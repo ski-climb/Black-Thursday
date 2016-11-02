@@ -43,7 +43,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_create_items_for_each_line_of_the_csv
-    number_of_items_in_file = 11
+    number_of_items_in_file = 12
     sales_engine = SalesEngine.from_csv({
       :items => './test/fixtures/item_fixture.csv'
     })
@@ -74,7 +74,7 @@ class SalesEngineTest < Minitest::Test
       :items => './test/fixtures/item_fixture.csv'
     })
     results = sales_engine.find_items_by_merchant_id(merchant_id)
-    assert_equal 6, results.length
+    assert_equal 7, results.length
   end
 
   def test_find_items_by_id_only_returns_items_for_specified_merchant
