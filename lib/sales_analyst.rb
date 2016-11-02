@@ -19,6 +19,12 @@ class SalesAnalyst
     return result.round(2)
   end
 
+  def merchants_with_high_item_count
+    all_merchants.find_all do |merchants|
+      merchants.items.length >= 7
+    end
+  end
+
   def total_number_of_items
     sales_engine.items.all.length
   end
