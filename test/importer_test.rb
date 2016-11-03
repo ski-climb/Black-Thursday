@@ -42,5 +42,16 @@ class ImporterTest < Minitest::Test
     assert_equal number_of_items_in_file, item_repository.all.length
     assert item_repository.all.map(&:name).include?("Anello nodo")
   end
+
+  def test_it_imports_invoices
+    invoice_repository = InvoiceRepository.new
+    number_of_invoices = 99
+    path_and_filename = './test/fixtures/invoice_fixture.csv'
+    sales_engine = SalesEngine
+    importer = Importer.new(path_and_filename, invoice_repository, sales_engine)
+    importer.import_invoices
+    assert_equal number_of_invoices, invoice_repository.all.length
+    assert invoice_repository.find_by_id(40)
+  end
 end
 

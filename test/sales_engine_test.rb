@@ -16,7 +16,8 @@ class SalesEngineTest < Minitest::Test
   def test_from_csv_can_take_a_hash_of_arguments
     assert SalesEngine.from_csv({
       :items =>     './test/fixtures/item_fixture.csv',
-      :merchants => './test/fixtures/merchant_fixture.csv'
+      :merchants => './test/fixtures/merchant_fixture.csv',
+      :invoices =>  './test/fixtures/invoice_fixture.csv'
     })
   end
 
@@ -26,6 +27,27 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, sales_engine.merchants
   end
 
+  def test_it_returns_an_item_repo
+    path_and_filename = './test/fixtures/item_fixture.csv'
+    sales_engine = SalesEngine.from_csv({:items => path_and_filename})
+    assert_instance_of ItemRepository, sales_engine.items
+  end
+
+  def test_it_returns_an_invoice_repo
+    path_and_filename = './test/fixtures/invoice_fixture.csv'
+    sales_engine = SalesEngine.from_csv({:invoices => path_and_filename})
+    assert_instance_of InvoiceRepository, sales_engine.invoices
+  end
+
+  def test_it_can_create_invoices_for_each_line_of_the_csv
+    number_of_invoices = 99
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './test/fixtures/invoice_fixture.csv'
+    })
+    assert_equal number_of_invoices, sales_engine.invoices.all.length
+    assert sales_engine.invoices.find_by_id(40)
+  end
+
   def test_it_can_create_merchants_for_each_line_of_the_csv
     number_of_merchants_in_file = 32
     sales_engine = SalesEngine.from_csv({
@@ -33,12 +55,6 @@ class SalesEngineTest < Minitest::Test
     })
     assert_equal number_of_merchants_in_file, sales_engine.merchants.all.length
     assert sales_engine.merchants.find_by_name("VectorCoast")
-  end
-
-  def test_it_returns_an_item_repo
-    path_and_filename = './test/fixtures/item_fixture.csv'
-    sales_engine = SalesEngine.from_csv({:items => path_and_filename})
-    assert_instance_of ItemRepository, sales_engine.items
   end
 
   def test_it_can_create_items_for_each_line_of_the_csv

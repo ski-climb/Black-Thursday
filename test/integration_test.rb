@@ -74,7 +74,21 @@ class IntegrationTest < Minitest::Test
 
   def test_it_finds_the_golden_items
     skip "for speed!"
-    assert_equal 5, @analyst.golden_items.length
-    assert_instance_of Item, @analyst.golden_items.first
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './data/items.csv',
+      :merchants => './data/merchants.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 5, analyst.golden_items.length
+    assert_instance_of Item, analyst.golden_items.first
+  end
+
+  def test_it_reads_in_the_invoices_file
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv'
+    })
+    assert_equal 4985, sales_engine.invoices.all.length
+    assert sales_engine.invoices.find_by_id(6)
+    assert sales_engine.invoices.find_by_id(4977)
   end
 end

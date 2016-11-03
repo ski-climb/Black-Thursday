@@ -1,6 +1,7 @@
 require 'csv'
 require_relative './merchant'
 require_relative './item'
+require_relative './invoice'
 
 class Importer
   attr_reader :path_and_filename,
@@ -23,6 +24,11 @@ class Importer
     return repository
   end
 
+  def import_invoices
+    add_invoices_to_repository(read_file)
+    return repository
+  end
+
   def read_file
     CSV.open(path_and_filename,
              headers: true,
@@ -38,15 +44,19 @@ class Importer
 
   def add_merchants_to_repository(contents)
     contents.each do |row|
-      merchant = create_merchant(row)
-      repository << merchant
+      repository << create_merchant(row)
     end
   end
 
   def add_items_to_repository(contents)
     contents.each do |row|
-      item = create_item(row)
-      repository << item
+      repository << create_item(row)
+    end
+  end
+
+  def add_invoices_to_repository(contents)
+    contents.each do |row|
+      repository << create_invoice(row)
     end
   end
 
@@ -60,5 +70,16 @@ class Importer
       :created_at   => row[:created_at],
       :updated_at   => row[:updated_at],
       :sales_engine => sales_engine)
+  end
+
+  def create_invoice(row)
+    Invoice.new(
+      :id          => row[:id],
+      :customer_id => row[:customer_id],
+      :merchant_id => row[:merchant_id],
+      :status      => row[:status],
+      :created_at  => row[:created_at],
+      :updated_at  => row[:updated_at],
+    )
   end
 end
