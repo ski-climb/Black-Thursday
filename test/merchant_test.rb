@@ -29,4 +29,8 @@ class MerchantTest < Minitest::Test
   def test_merchants_respond_to_items_method
     assert_respond_to @merchant, :items
   end
+  
+  def test_merchants_respond_to_invoices_method
+    assert_respond_to @merchant, :invoices
+  end
 end

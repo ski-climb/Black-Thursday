@@ -84,4 +84,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1, results.map(&:merchant_id).uniq.length
     assert_equal merchant_id, results.map(&:merchant_id).uniq.first
   end
+
+  def test_it_can_find_invoices_by_merchant_id
+    merchant_id = 12341234
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './test/fixtures/invoice_fixture.csv'
+    })
+    results = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    assert_equal 9, results.length
+    assert_equal merchant_id, results.map(&:merchant_id).uniq.first
+  end
 end

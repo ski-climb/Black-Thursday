@@ -48,6 +48,17 @@ class IntegrationTest < Minitest::Test
     assert sales_engine.items.all.map(&:name).include?('wooden finger protection')
   end
 
+  def test_it_reads_in_the_invoices_file
+    skip "for speed!"
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv'
+    })
+    results = sales_engine.invoices
+    assert_equal 4985, results.all.length
+    assert results.find_by_id(6)
+    assert results.find_by_id(4977)
+  end
+
   def test_it_calculates_average_items_per_merchant_using_provided_data
     skip "for speed!"
     sales_engine = SalesEngine.from_csv({
@@ -99,15 +110,5 @@ class IntegrationTest < Minitest::Test
     analyst = SalesAnalyst.new(sales_engine)
     assert_equal 5, analyst.golden_items.length
     assert_instance_of Item, analyst.golden_items.first
-  end
-
-  def test_it_reads_in_the_invoices_file
-    skip "for speed!"
-    sales_engine = SalesEngine.from_csv({
-      :invoices => './data/invoices.csv'
-    })
-    assert_equal 4985, sales_engine.invoices.all.length
-    assert sales_engine.invoices.find_by_id(6)
-    assert sales_engine.invoices.find_by_id(4977)
   end
 end
