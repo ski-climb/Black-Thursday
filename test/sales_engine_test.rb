@@ -90,7 +90,7 @@ class SalesEngineTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :invoices => './test/fixtures/invoice_fixture.csv'
     })
-    results = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    results = sales_engine.find_invoices_by_merchant_id(merchant_id)
     assert_equal 9, results.length
     assert_equal merchant_id, results.map(&:merchant_id).uniq.first
   end

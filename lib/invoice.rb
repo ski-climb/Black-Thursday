@@ -20,4 +20,8 @@ class Invoice
     @sales_engine = sales_engine
   end
 
+  def merchant
+    sales_engine.find_merchant_by_invoice_id(merchant_id)
+  end
+
 end

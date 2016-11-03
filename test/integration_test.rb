@@ -18,7 +18,18 @@ class IntegrationTest < Minitest::Test
     assert_equal items, merchant.items
   end
 
-  def test_items_can_find_their_merchant
+  def test_merchants_can_find_their_invoices
+    sales_engine = SalesEngine.from_csv({
+      :merchants => './test/fixtures/merchant_fixture.csv',
+      :invoices => './test/fixtures/invoice_fixture.csv'
+    })
+    merchant_id = 12341234
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    assert_equal invoices, merchant.invoices
+  end
+
+  def test_an_item_can_find_its_merchant
     sales_engine = SalesEngine.from_csv({
       :merchants => './test/fixtures/merchant_fixture.csv',
       :items => './test/fixtures/item_fixture.csv'
@@ -27,6 +38,17 @@ class IntegrationTest < Minitest::Test
     merchant = sales_engine.merchants.find_by_id(merchant_id)
     item = sales_engine.items.find_all_by_merchant_id(merchant_id).first
     assert_equal merchant, item.merchant
+  end
+
+  def test_an_invoice_can_find_its_merchant
+    sales_engine = SalesEngine.from_csv({
+      :merchants => './test/fixtures/merchant_fixture.csv',
+      :invoices => './test/fixtures/invoice_fixture.csv'
+    })
+    merchant_id = 12341234
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    invoice = sales_engine.invoices.find_all_by_merchant_id(merchant_id).first
+    assert_equal merchant, invoice.merchant
   end
 
   def test_it_can_import_the_provided_file_for_merchants
@@ -49,7 +71,7 @@ class IntegrationTest < Minitest::Test
     assert sales_engine.items.all.map(&:name).include?('wooden finger protection')
   end
 
-  def test_it_reads_in_the_invoices_file
+  def test_it_can_import_the_provided_file_for_items
     skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv'

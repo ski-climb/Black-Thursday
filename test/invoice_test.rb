@@ -1,5 +1,6 @@
 require_relative './test_helper.rb'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
 
@@ -45,5 +46,9 @@ class InvoiceTest < Minitest::Test
   def test_it_has_a_updated_at
     updated_at = Time.gm(2012, 2, 26, 20, 56, 56)
     assert_equal updated_at, @invoice.updated_at
+  end
+
+  def test_invoice_responds_to_merchant
+    assert_respond_to @invoice, :merchant
   end
 end
