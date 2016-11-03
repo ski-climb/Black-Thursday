@@ -44,12 +44,14 @@ class SalesAnalyst
     end
   end
 
-  def item_standard_deviations(number)
-    average_items_per_merchant + number * average_items_per_merchant_standard_deviation
+  def item_standard_deviations(n)
+    average_items_per_merchant + \
+      n * average_items_per_merchant_standard_deviation
   end
 
-  def price_standard_deviations(number)
-    average_unit_price_per_item + number * average_unit_price_per_item_standard_deviation
+  def price_standard_deviations(n)
+    average_unit_price_per_item + \
+      n * average_unit_price_per_item_standard_deviation
   end
 
   def average_item_price_for_merchant(id)

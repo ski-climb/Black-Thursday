@@ -7,7 +7,7 @@ class Customer
               :last_name,
               :created_at,
               :updated_at
-              
+
   def initialize(data)
     @id = data[:id].to_i
     @first_name = data[:first_name]
