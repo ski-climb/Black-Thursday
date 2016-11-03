@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/invoice'
+require_relative '../lib/invoice'
 
 class InvoiceTest < Minitest::Test
 
@@ -22,15 +22,15 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_has_an_id
-    assert_equal '6', @invoice.id
+    assert_equal 6, @invoice.id
   end
 
   def test_invoice_has_a_customer_id
-    assert_equal '7', @invoice.customer_id
+    assert_equal 7, @invoice.customer_id
   end
 
   def test_invoice_has_a_merchant_id
-    assert_equal '8', @invoice.merchant_id
+    assert_equal 8, @invoice.merchant_id
   end
 
   def test_invoice_has_a_status

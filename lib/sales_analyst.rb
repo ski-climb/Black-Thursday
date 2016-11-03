@@ -17,7 +17,7 @@ class SalesAnalyst
 
   def total_price_for_all_items
     all_items.map do |item|
-      item.unit_price / 100
+      item.unit_price
     end.reduce(:+)
   end
 
@@ -26,17 +26,15 @@ class SalesAnalyst
       (merchant.items.length - average_items_per_merchant)**2
     end.reduce(:+)
     denominator = total_number_of_merchants - 1
-    result = Math::sqrt(numerator / denominator)
-    return result.round(2)
+    return Math::sqrt(numerator / denominator).round(2)
   end
 
   def average_unit_price_per_item_standard_deviation
     numerator = all_items.map do |item|
-      (item.unit_price / 100 - average_unit_price_per_item)**2
+      (item.unit_price - average_unit_price_per_item)**2
     end.reduce(:+)
     denominator = total_number_of_items - 1
-    result = Math::sqrt(numerator / denominator)
-    return result.round(2)
+    return Math::sqrt(numerator / denominator).round(2)
   end
 
   def merchants_with_high_item_count
@@ -57,8 +55,8 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     merchant = sales_engine.merchants.find_by_id(id)
     number_of_items = merchant.items.length
-    price_of_items = merchant.items.map(&:unit_price).reduce(:+) / 100
-    return price_of_items / number_of_items
+    price_of_items = merchant.items.map(&:unit_price).reduce(:+)
+    return (price_of_items / number_of_items).round(2)
   end
 
   def average_average_price_per_merchant
@@ -71,7 +69,7 @@ class SalesAnalyst
   def golden_items
     plus_two_standard_deviations = price_standard_deviations(2)
     all_items.find_all do |item|
-      item.unit_price / 100 >= plus_two_standard_deviations
+      item.unit_price >= plus_two_standard_deviations
     end
   end
 

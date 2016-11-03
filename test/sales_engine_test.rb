@@ -1,8 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item_repository'
 
 class SalesEngineTest < Minitest::Test
 
@@ -51,23 +51,6 @@ class SalesEngineTest < Minitest::Test
     assert sales_engine.items.find_by_name("Anello nodo")
   end
 
-  def test_it_can_import_the_provided_file_for_merchants
-    sales_engine = SalesEngine.from_csv({
-      :merchants => './data/merchants.csv'
-    })
-    assert_equal 475, sales_engine.merchants.all.length
-    assert sales_engine.merchants.all.map(&:name).include?('Woodenpenshop')
-  end
-
-  def test_it_can_import_the_provided_file_for_items
-    skip "for speed!"
-    sales_engine = SalesEngine.from_csv({
-      :items => './data/items.csv'
-    })
-    assert_equal 1367, sales_engine.items.all.length
-    assert sales_engine.items.all.map(&:name).include?('wooden finger protection')
-  end
-
   def test_it_can_find_items_by_merchant_id
     merchant_id = 12341234
     sales_engine = SalesEngine.from_csv({
@@ -84,6 +67,6 @@ class SalesEngineTest < Minitest::Test
     })
     results = sales_engine.find_items_by_merchant_id(merchant_id)
     assert_equal 1, results.map(&:merchant_id).uniq.length
-    assert_equal merchant_id.to_s, results.map(&:merchant_id).uniq.first
+    assert_equal merchant_id, results.map(&:merchant_id).uniq.first
   end
 end

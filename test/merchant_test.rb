@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
 
@@ -16,7 +16,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchants_have_ids
-    assert_equal '12345678', @merchant.id
+    assert_equal 12345678, @merchant.id
   end
 
   def test_merchants_have_names

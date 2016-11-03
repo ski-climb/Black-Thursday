@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/customer'
+require_relative '../lib/customer'
 
 class CustomerTest < Minitest::Test
 
@@ -20,7 +20,7 @@ class CustomerTest < Minitest::Test
   end
 
   def test_customer_has_an_id
-    assert_equal '6', @customer.id
+    assert_equal 6, @customer.id
   end
 
   def test_customer_has_a_first_name
