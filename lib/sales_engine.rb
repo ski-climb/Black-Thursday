@@ -4,6 +4,7 @@ require_relative './invoice_repository'
 require_relative './importer'
 
 class SalesEngine
+  include Importer
 
   def self.merchants
     @all_merchants
@@ -36,11 +37,13 @@ class SalesEngine
   end
 
   def self.import_merchants(path_and_filename)
-    Importer.new(path_and_filename, @all_merchants, self).import_merchants
+    contents = Importer.read_file(path_and_filename)
+    @all_merchants.add_merchants(contents)
   end
 
   def self.import_items(path_and_filename)
-    Importer.new(path_and_filename, @all_items, self).import_items
+    contents = Importer.read_file(path_and_filename)
+    @all_items.add_items(contents)
   end
 
   def self.import_invoices(path_and_filename)

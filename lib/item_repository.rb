@@ -9,6 +9,12 @@ class ItemRepository
     all.push(item)
   end
 
+  def add_items(data)
+    data.each do |row|
+      all << Item.new(row)
+    end
+  end
+
   def find_by_id(id)
     all.find do |item|
       item.id == id.to_i

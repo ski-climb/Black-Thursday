@@ -9,6 +9,12 @@ class MerchantRepository
     all.push(merchant)
   end
 
+  def add_merchants(data)
+    data.each do |row|
+      all << Merchant.new(row)
+    end
+  end
+
   def find_by_id(id)
     all.find do |merchant|
       merchant.id == id.to_i
