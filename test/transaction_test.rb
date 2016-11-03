@@ -24,11 +24,11 @@ class TransactionTest < Minitest::Test
   end
 
   def test_transaction_has_an_id
-    assert_equal "6", @transaction.id
+    assert_equal 6, @transaction.id
   end
 
   def test_transaction_has_an_invoice_id
-    assert_equal "8", @transaction.invoice_id
+    assert_equal 8, @transaction.invoice_id
   end
 
   def test_transaction_has_a_credit_card_number

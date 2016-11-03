@@ -24,15 +24,15 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_invoice_item_has_an_id
-    assert_equal '6', @invoice_item.id
+    assert_equal 6, @invoice_item.id
   end
 
   def test_invoice_item_has_an_item_id
-    assert_equal '7', @invoice_item.item_id
+    assert_equal 7, @invoice_item.item_id
   end
 
   def test_invoice_item_has_an_invoice_id
-    assert_equal '8', @invoice_item.invoice_id
+    assert_equal 8, @invoice_item.invoice_id
   end
 
   def test_invoice_item_has_a_quantity
@@ -50,7 +50,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_has_a_unit_price
-    assert_equal 7500, @invoice_item.unit_price
+    assert_equal 75, @invoice_item.unit_price
   end
 
   def test_unit_price_is_a_big_decimal

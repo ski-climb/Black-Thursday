@@ -12,16 +12,16 @@ class InvoiceItem
               :updated_at
 
   def initialize(data)
-    @id = data[:id].to_s
-    @item_id = data[:item_id].to_s
-    @invoice_id = data[:invoice_id].to_s
+    @id = data[:id].to_i
+    @item_id = data[:item_id].to_i
+    @invoice_id = data[:invoice_id].to_i
     @quantity = data[:quantity]
-    @unit_price = BigDecimal.new(data[:unit_price], 4)
+    @unit_price = BigDecimal.new(data[:unit_price], 4) / 100
     @created_at = Chronic.parse(data[:created_at])
     @updated_at = Chronic.parse(data[:updated_at])
   end
 
   def unit_price_to_dollars
-    (unit_price / BigDecimal.new(100)).to_f
+    unit_price.to_f
   end
 end

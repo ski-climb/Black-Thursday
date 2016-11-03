@@ -67,6 +67,6 @@ class SalesEngineTest < Minitest::Test
     })
     results = sales_engine.find_items_by_merchant_id(merchant_id)
     assert_equal 1, results.map(&:merchant_id).uniq.length
-    assert_equal merchant_id.to_s, results.map(&:merchant_id).uniq.first
+    assert_equal merchant_id, results.map(&:merchant_id).uniq.first
   end
 end

@@ -14,18 +14,18 @@ class Item
               :sales_engine
 
   def initialize(data)
-    @id = data[:id].to_s
+    @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @merchant_id = data[:merchant_id].to_s
-    @unit_price = BigDecimal.new(data[:unit_price], 4)
+    @merchant_id = data[:merchant_id].to_i
+    @unit_price = BigDecimal.new(data[:unit_price], 4) / 100
     @created_at = Chronic.parse(data[:created_at])
     @updated_at = Chronic.parse(data[:updated_at])
     @sales_engine = data[:sales_engine]
   end
 
   def unit_price_to_dollars
-    (unit_price / BigDecimal(100)).to_f
+    unit_price.to_f
   end
 
   def merchant

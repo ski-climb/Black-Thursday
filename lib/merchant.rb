@@ -7,7 +7,7 @@ class Merchant
               :sales_engine
 
   def initialize(data)
-    @id = data[:id].to_s
+    @id = data[:id].to_i
     @name = data[:name]
     @sales_engine = data[:sales_engine]
   end

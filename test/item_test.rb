@@ -26,7 +26,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_an_id
-    assert_equal '12345678', @item.id
+    assert_equal 12345678, @item.id
   end
 
   def test_it_has_a_name
@@ -38,11 +38,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_merchant_id
-    assert_equal "12334141", @item.merchant_id
+    assert_equal 12334141, @item.merchant_id
   end
 
   def test_it_has_a_unit_price
-    assert_equal 7500, @item.unit_price
+    assert_equal 75, @item.unit_price
   end
 
   def test_unit_price_is_a_big_decimal

@@ -16,7 +16,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchants_have_ids
-    assert_equal '12345678', @merchant.id
+    assert_equal 12345678, @merchant.id
   end
 
   def test_merchants_have_names
