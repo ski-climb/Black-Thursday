@@ -10,6 +10,7 @@ class InvoiceTest < Minitest::Test
     invoice_status = "pending"
     invoice_created_at = '2013-03-27 14:54:09 UTC'
     invoice_updated_at = '2012-02-26 20:56:56 UTC'
+    sales_engine = SalesEngine
     @invoice = Invoice.new({
       :id => invoice_id,
       :customer_id => invoice_customer_id,
@@ -17,7 +18,7 @@ class InvoiceTest < Minitest::Test
       :status => invoice_status,
       :created_at => invoice_created_at,
       :updated_at => invoice_updated_at
-    })
+    }, sales_engine)
   end
 
   def test_invoice_has_an_id

@@ -5,7 +5,8 @@ require_relative '../lib/invoice'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @invoice_repository = InvoiceRepository.new
+    @sales_engine = SalesEngine
+    @invoice_repository = InvoiceRepository.new(@sales_engine)
     @invoice_1 = Invoice.new({
       :id          => 1234,
       :customer_id => 2345,
@@ -13,7 +14,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :status      => "shipped",
       :created_at  => '2009-02-07',
       :updated_at  => '2015-03-13'
-    })
+    }, @sales_engine)
     @invoice_2 = Invoice.new({
       :id          => 987,
       :customer_id => 2345,
@@ -21,7 +22,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :status      => "shipped",
       :created_at  => '2009-02-07',
       :updated_at  => '2015-03-13'
-    })
+    }, @sales_engine)
     @invoice_3 = Invoice.new({
       :id          => 8383,
       :customer_id => 5432,
@@ -29,18 +30,18 @@ class InvoiceRepositoryTest < Minitest::Test
       :status      => "pending",
       :created_at  => '2009-02-07',
       :updated_at  => '2015-03-13'
-    })
+    }, @sales_engine)
     @invoice_repository << @invoice_1
     @invoice_repository << @invoice_2
     @invoice_repository << @invoice_3
   end
 
   def test_it_exists
-    assert InvoiceRepository.new
+    assert InvoiceRepository.new(@sales_engine)
   end
 
   def test_it_has_no_invoices_when_initialized
-    invoice_repository = InvoiceRepository.new
+    invoice_repository = InvoiceRepository.new(@sales_engine)
     assert_equal [], invoice_repository.all
   end
 

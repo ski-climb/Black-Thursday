@@ -1,12 +1,20 @@
 class InvoiceRepository
-  attr_reader :all
+  attr_reader :all,
+              :sales_engine
 
-  def initialize
+  def initialize(sales_engine)
     @all = []
+    @sales_engine = sales_engine
   end
 
   def <<(invoice)
     all.push(invoice)
+  end
+
+  def add_invoices(data)
+    data.each do |row|
+      all << Invoice.new(row, sales_engine)
+    end
   end
 
   def find_by_id(invoice_id)

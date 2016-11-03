@@ -6,10 +6,10 @@ class Merchant
               :name,
               :sales_engine
 
-  def initialize(data)
+  def initialize(data, sales_engine)
     @id = data[:id].to_i
     @name = data[:name]
-    @sales_engine = data[:sales_engine]
+    @sales_engine = sales_engine
   end
 
   def items

@@ -13,7 +13,7 @@ class Item
               :updated_at,
               :sales_engine
 
-  def initialize(data)
+  def initialize(data, sales_engine)
     @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
@@ -21,7 +21,7 @@ class Item
     @unit_price = BigDecimal.new(data[:unit_price], 4) / 100
     @created_at = Chronic.parse(data[:created_at])
     @updated_at = Chronic.parse(data[:updated_at])
-    @sales_engine = data[:sales_engine]
+    @sales_engine = sales_engine
   end
 
   def unit_price_to_dollars

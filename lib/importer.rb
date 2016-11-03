@@ -3,7 +3,7 @@ require_relative './merchant'
 require_relative './item'
 require_relative './invoice'
 
-module Importer
+class Importer
 
   def self.read_file(path_and_filename)
     CSV.open(path_and_filename,

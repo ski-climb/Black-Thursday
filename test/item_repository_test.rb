@@ -5,33 +5,37 @@ require_relative '../lib/item'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @item_repository = ItemRepository.new
-    @item_1 = Item.new(
+    @sales_engine = SalesEngine
+    @item_repository = ItemRepository.new(@sales_engine)
+    @item_1 = Item.new({
       :id => 1,
       :name => "King Soopers",
       :description => "Some place to get food",
       :merchant_id => 1001,
       :unit_price => 1200,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
-    @item_2 = Item.new(
+    @item_2 = Item.new({
       :id => 2,
       :name => "Whole Foods",
       :description => "Or is it Whole Paycheck",
       :merchant_id => 1002,
       :unit_price => 1200,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
-    @item_3 = Item.new(
+    @item_3 = Item.new({
       :id => 3,
       :name => "Subway",
       :description => "Eat Fresh",
       :merchant_id => 1003,
       :unit_price => 3600,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
     @item_repository << @item_1
     @item_repository << @item_2
@@ -39,11 +43,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_exists
-    assert ItemRepository.new
+    assert ItemRepository.new(@sales_engine)
   end
 
   def test_it_has_no_items_when_initialized
-    item_repository = ItemRepository.new
+    item_repository = ItemRepository.new(@sales_engine)
     assert_equal [], item_repository.all
   end
 
@@ -75,23 +79,25 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description_returns_item_with_given_description_stub
-    item_4 = Item.new(
+    item_4 = Item.new({
       :id => 4,
       :name => "Domino's Pizza",
       :description => "Another pizza place",
       :merchant_id => 1004,
       :unit_price => 3456,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
-    item_5 = Item.new(
+    item_5 = Item.new({
       :id => 5,
       :name => "Pizza Hut",
       :description => "Something about The Hut and pizza",
       :merchant_id => 1005,
       :unit_price => 2345,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
     @item_repository.all << item_4
     @item_repository.all << item_5
@@ -101,23 +107,25 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description_is_case_insensitive
-    item_4 = Item.new(
+    item_4 = Item.new({
       :id => 4,
       :name => "Domino's Pizza",
       :description => "Another pizza place",
       :merchant_id => 1004,
       :unit_price => 1234,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
-    item_5 = Item.new(
+    item_5 = Item.new({
       :id => 5,
       :name => "Pizza Hut",
       :description => "Something about The Hut and pizza",
       :merchant_id => 1005,
       :unit_price => 1234,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
     @item_repository.all << item_4
     @item_repository.all << item_5
@@ -139,14 +147,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_mechant_id_returns_all_items_with_that_merchant_id
-    item_5 = Item.new(
+    item_5 = Item.new({
       :id => 5,
       :name => "Pizza Hut",
       :description => "Something about The Hut and pizza",
       :merchant_id => 1002,
       :unit_price => 1234,
       :created_at => '2013-03-27 14:54:09 UTC',
-      :updated_at => '2011-02-22 15:24:19 UTC'
+      :updated_at => '2011-02-22 15:24:19 UTC'},
+      @sales_engine
     )
     @item_repository << item_5
     results = @item_repository.find_all_by_merchant_id(1002)
@@ -169,14 +178,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range_returns_all_items_with_prices_in_range
-    item_4 = Item.new(
+    item_4 = Item.new({
       :id => 4,
       :name => "Pizza Hut",
       :description => "Something about The Hut and pizza",
       :merchant_id => 1002,
       :unit_price => 1234,
       :created_at => '2013-03-27 14:44:09 UTC',
-      :updated_at => '2011-02-22 14:24:19 UTC'
+      :updated_at => '2011-02-22 14:24:19 UTC'},
+      @sales_engine
     )
     @item_repository << item_4
     results = @item_repository.find_all_by_price_in_range(12..13)

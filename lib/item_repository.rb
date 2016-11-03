@@ -1,8 +1,10 @@
 class ItemRepository
-  attr_reader :all
+  attr_reader :all,
+              :sales_engine
 
-  def initialize
+  def initialize(sales_engine)
     @all = []
+    @sales_engine = sales_engine
   end
 
   def <<(item)
@@ -11,7 +13,7 @@ class ItemRepository
 
   def add_items(data)
     data.each do |row|
-      all << Item.new(row)
+      all << Item.new(row, sales_engine)
     end
   end
 

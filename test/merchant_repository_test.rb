@@ -5,21 +5,22 @@ require_relative '../lib/merchant'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @merchant_repository = MerchantRepository.new
-    merchant_1 = Merchant.new(:id => 1, :name => "King Soopers")
-    merchant_2 = Merchant.new(:id => 2, :name => "Whole Foods")
-    merchant_3 = Merchant.new(:id => 3, :name => "Subway")
+    @sales_engine = SalesEngine
+    @merchant_repository = MerchantRepository.new(@sales_engine)
+    merchant_1 = Merchant.new({:id => 1, :name => "King Soopers"}, @sales_engine)
+    merchant_2 = Merchant.new({:id => 2, :name => "Whole Foods"}, @sales_engine)
+    merchant_3 = Merchant.new({:id => 3, :name => "Subway"}, @sales_engine)
     @merchant_repository << merchant_1
     @merchant_repository << merchant_2
     @merchant_repository << merchant_3
   end
 
   def test_it_exists
-    assert MerchantRepository.new
+    assert MerchantRepository.new(@sales_engine)
   end
 
   def test_it_has_no_merchants_when_initialized
-    merchant_repository = MerchantRepository.new
+    merchant_repository = MerchantRepository.new(@sales_engine)
     assert_equal [], merchant_repository.all
   end
 
@@ -51,8 +52,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_returns_merchant_with_given_name_stub
-    merchant_4 = Merchant.new(:id => 4, :name => "Domino's Pizza")
-    merchant_5 = Merchant.new(:id => 5, :name => "Pizza Hut")
+    merchant_4 = Merchant.new({:id => 4, :name => "Domino's Pizza"}, @sales_engine)
+    merchant_5 = Merchant.new({:id => 5, :name => "Pizza Hut"}, @sales_engine)
     @merchant_repository.all << merchant_4
     @merchant_repository.all << merchant_5
     results = @merchant_repository.find_all_by_name("zza")
@@ -61,8 +62,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_is_case_insensitive
-    merchant_4 = Merchant.new(:id => 4, :name => "Domino's Pizza")
-    merchant_5 = Merchant.new(:id => 5, :name => "Pizza Hut")
+    merchant_4 = Merchant.new({:id => 4, :name => "Domino's Pizza"}, @sales_engine)
+    merchant_5 = Merchant.new({:id => 5, :name => "Pizza Hut"}, @sales_engine)
     @merchant_repository.all << merchant_4
     @merchant_repository.all << merchant_5
     results = @merchant_repository.find_all_by_name("PIZZA")

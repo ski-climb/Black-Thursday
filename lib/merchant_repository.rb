@@ -1,8 +1,10 @@
 class MerchantRepository
-  attr_reader :all
+  attr_reader :all,
+              :sales_engine
 
-  def initialize
+  def initialize(sales_engine)
     @all = []
+    @sales_engine = sales_engine
   end
 
   def <<(merchant)
@@ -11,7 +13,7 @@ class MerchantRepository
 
   def add_merchants(data)
     data.each do |row|
-      all << Merchant.new(row)
+      all << Merchant.new(row, sales_engine)
     end
   end
 

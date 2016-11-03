@@ -9,9 +9,8 @@ class MerchantTest < Minitest::Test
     sales_engine = SalesEngine
     @merchant = Merchant.new({
       :id => merchant_id,
-      :name => merchant_name,
-      :sales_engine => sales_engine
-    })
+      :name => merchant_name
+    }, sales_engine)
   end
 
   def test_merchants_have_ids

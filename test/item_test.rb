@@ -19,9 +19,8 @@ class ItemTest < Minitest::Test
       :merchant_id => item_merchant_id,
       :unit_price => item_unit_price,
       :created_at => item_created_at,
-      :updated_at => item_updated_at,
-      :sales_engine => sales_engine
-    })
+      :updated_at => item_updated_at
+    }, sales_engine)
   end
 
   def test_it_has_an_id
