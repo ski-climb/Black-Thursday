@@ -102,6 +102,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_reads_in_the_invoices_file
+    skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv'
     })
