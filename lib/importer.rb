@@ -30,7 +30,7 @@ class Importer
   end
 
   def create_merchant(row)
-    merchant = Merchant.new(
+    Merchant.new(
       :id           => row[:id],
       :name         => row[:name],
       :sales_engine => sales_engine)
@@ -51,7 +51,7 @@ class Importer
   end
 
   def create_item(row)
-    item = Item.new(
+    Item.new(
       :id           => row[:id],
       :name         => row[:name],
       :description  => row[:description],

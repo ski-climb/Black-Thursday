@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative './test_helper.rb'
 require_relative '../lib/importer'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
@@ -16,7 +15,6 @@ class ImporterTest < Minitest::Test
   def test_it_returns_an_empty_array_if_the_file_is_empty
     merchant_repository = MerchantRepository.new
     path_and_filename = './test/fixtures/empty_merchant_fixture.csv'
-    number_of_merchants_in_file = 0
     sales_engine = SalesEngine
     importer = Importer.new(path_and_filename, merchant_repository, sales_engine)
     importer.import_merchants
