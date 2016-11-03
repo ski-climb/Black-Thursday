@@ -6,16 +6,7 @@ require_relative '../lib/item_repository'
 
 class IntegrationTest < Minitest::Test
 
-  def setup
-    # @sales_engine = SalesEngine.from_csv({
-    #   :items =>     './data/items.csv',
-    #   :merchants => './data/merchants.csv'
-    # })
-    # @analyst = SalesAnalyst.new(@sales_engine)
-  end
-
   def test_merchants_can_find_their_items
-    skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './test/fixtures/merchant_fixture.csv',
       :items => './test/fixtures/item_fixture.csv'
@@ -27,7 +18,6 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_items_can_find_their_merchant
-    skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './test/fixtures/merchant_fixture.csv',
       :items => './test/fixtures/item_fixture.csv'
@@ -40,36 +30,64 @@ class IntegrationTest < Minitest::Test
 
   def test_it_can_import_the_provided_file_for_merchants
     skip "for speed!"
-    assert_equal 475, @sales_engine.merchants.all.length
-    assert @sales_engine.merchants.all.map(&:name).include?('Woodenpenshop')
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './data/items.csv',
+      :merchants => './data/merchants.csv'
+    })
+    assert_equal 475, sales_engine.merchants.all.length
+    assert sales_engine.merchants.all.map(&:name).include?('Woodenpenshop')
   end
 
   def test_it_can_import_the_provided_file_for_items
     skip "for speed!"
-    assert_equal 1367, @sales_engine.items.all.length
-    assert @sales_engine.items.all.map(&:name).include?('wooden finger protection')
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './data/items.csv',
+      :merchants => './data/merchants.csv'
+    })
+    assert_equal 1367, sales_engine.items.all.length
+    assert sales_engine.items.all.map(&:name).include?('wooden finger protection')
   end
 
   def test_it_calculates_average_items_per_merchant_using_provided_data
     skip "for speed!"
-    assert_equal 2.88, @analyst.average_items_per_merchant
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './data/items.csv',
+      :merchants => './data/merchants.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 2.88, analyst.average_items_per_merchant
   end
 
   def test_it_calculates_average_items_per_merchant_standard_deviation_using_provided_data
     skip "for speed!"
-    assert_equal 3.26, @analyst.average_items_per_merchant_standard_deviation
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './data/items.csv',
+      :merchants => './data/merchants.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 3.26, analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_it_calculates_merchants_with_high_item_count_using_provided_data
     skip "for speed!"
-    assert_equal 52, @analyst.merchants_with_high_item_count.length
-    assert_instance_of Merchant, @analyst.merchants_with_high_item_count.first
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './data/items.csv',
+      :merchants => './data/merchants.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 52, analyst.merchants_with_high_item_count.length
+    assert_instance_of Merchant, analyst.merchants_with_high_item_count.first
   end
 
   def test_it_calculates_average_average_price_per_merchant
     skip "for speed!"
-    assert_equal 350.29, @analyst.average_average_price_per_merchant.to_f
-    assert_instance_of BigDecimal, @analyst.average_average_price_per_merchant
+    sales_engine = SalesEngine.from_csv({
+      :items =>     './data/items.csv',
+      :merchants => './data/merchants.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 350.29, analyst.average_average_price_per_merchant.to_f
+    assert_instance_of BigDecimal, analyst.average_average_price_per_merchant
   end
 
   def test_it_finds_the_golden_items

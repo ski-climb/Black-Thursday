@@ -49,11 +49,11 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_create_merchants_for_each_line_of_the_csv
-    number_of_merchants_in_file = 32
+    number_of_merchants = 32
     sales_engine = SalesEngine.from_csv({
       :merchants => './test/fixtures/merchant_fixture.csv'
     })
-    assert_equal number_of_merchants_in_file, sales_engine.merchants.all.length
+    assert_equal number_of_merchants, sales_engine.merchants.all.length
     assert sales_engine.merchants.find_by_name("VectorCoast")
   end
 
