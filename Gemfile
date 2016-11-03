@@ -6,3 +6,4 @@ gem 'minitest'
 gem 'minitest-nyan-cat'
 gem 'pry'
 gem 'chronic'
+gem 'simplecov', :require => false
