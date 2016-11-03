@@ -26,8 +26,7 @@ class SalesAnalyst
       (merchant.items.length - average_items_per_merchant)**2
     end.reduce(:+)
     denominator = total_number_of_merchants - 1
-    result = Math::sqrt(numerator / denominator)
-    return result.round(2)
+    return Math::sqrt(numerator / denominator).round(2)
   end
 
   def average_unit_price_per_item_standard_deviation
@@ -35,8 +34,7 @@ class SalesAnalyst
       (item.unit_price / 100 - average_unit_price_per_item)**2
     end.reduce(:+)
     denominator = total_number_of_items - 1
-    result = Math::sqrt(numerator / denominator)
-    return result.round(2)
+    return Math::sqrt(numerator / denominator).round(2)
   end
 
   def merchants_with_high_item_count

@@ -1,8 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/importer'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative '../lib/importer'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item_repository'
 
 class ImporterTest < Minitest::Test
 

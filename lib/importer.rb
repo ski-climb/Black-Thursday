@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/merchant'
-require './lib/item'
+require_relative './merchant'
+require_relative './item'
 
 class Importer
   attr_reader :path_and_filename,

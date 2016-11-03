@@ -1,6 +1,6 @@
 require 'chronic'
 require 'bigdecimal'
-require './lib/sales_engine'
+require_relative './sales_engine'
 
 class Item
 

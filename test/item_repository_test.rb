@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item_repository'
-require './lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/item'
 
 class ItemRepositoryTest < Minitest::Test
 
