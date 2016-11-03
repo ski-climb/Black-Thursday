@@ -1,5 +1,5 @@
-require 'chronic'
 require 'bigdecimal'
+require 'chronic'
 
 class InvoiceItem
 

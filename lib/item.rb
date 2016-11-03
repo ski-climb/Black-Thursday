@@ -1,5 +1,5 @@
-require 'chronic'
 require 'bigdecimal'
+require 'chronic'
 require_relative './sales_engine'
 
 class Item

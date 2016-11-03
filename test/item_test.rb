@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require_relative './test_helper.rb'
 require_relative '../lib/item'
 
