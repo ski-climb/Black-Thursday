@@ -1,6 +1,7 @@
 require_relative './test_helper.rb'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
 
@@ -11,7 +12,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :id          => 1234,
       :customer_id => 2345,
       :merchant_id => 3456,
-      :status      => "shipped",
+      :status      => :shipped,
       :created_at  => '2009-02-07',
       :updated_at  => '2015-03-13'
     }, @sales_engine)
@@ -19,7 +20,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :id          => 987,
       :customer_id => 2345,
       :merchant_id => 3456,
-      :status      => "shipped",
+      :status      => :shipped,
       :created_at  => '2009-02-07',
       :updated_at  => '2015-03-13'
     }, @sales_engine)
@@ -27,7 +28,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :id          => 8383,
       :customer_id => 5432,
       :merchant_id => 6543,
-      :status      => "pending",
+      :status      => :pending,
       :created_at  => '2009-02-07',
       :updated_at  => '2015-03-13'
     }, @sales_engine)
@@ -84,11 +85,11 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_when_no_status_matches
-    assert_equal [], @invoice_repository.find_all_by_status("giggling")
+    assert_equal [], @invoice_repository.find_all_by_status(:giggling)
   end
 
   def test_it_finds_all_by_status
-    status = "shipped"
+    status = :shipped
     results = @invoice_repository.find_all_by_status(status)
     assert_equal 2, results.count
     assert_equal status, results.map(&:status).uniq.first
