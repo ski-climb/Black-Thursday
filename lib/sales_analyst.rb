@@ -13,6 +13,11 @@ class SalesAnalyst
     result.round(2)
   end
 
+  def average_invoices_per_merchant
+    result = total_number_of_invoices / total_number_of_merchants.to_f
+    result.round(2)
+  end
+
   def average_unit_price_per_item
     result = total_price_for_all_items / total_number_of_items.to_f
     result.round(2)
@@ -40,10 +45,18 @@ class SalesAnalyst
     .round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    calculate_standard_deviation(
+      invoices_per_merchant,
+      average_invoices_per_merchant,
+      total_number_of_merchants)
+    .round(2)
+  end
+
   def merchants_with_high_item_count
     plus_one_standard_deviation = item_standard_deviations(1)
     all_merchants.find_all do |merchant|
-      merchant.items.length >= plus_one_standard_deviation
+      merchant.items.count >= plus_one_standard_deviation
     end
   end
 
@@ -59,7 +72,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     merchant = sales_engine.merchants.find_by_id(id)
-    number_of_items = merchant.items.length
+    number_of_items = merchant.items.count
     price_of_items = merchant.items.map(&:unit_price).reduce(:+)
     return (price_of_items / number_of_items).round(2)
   end
@@ -78,13 +91,15 @@ class SalesAnalyst
     end
   end
 
-  def average_invoices_per_merchant
-    (total_number_of_invoices / total_number_of_merchants.to_f).round(2)
-  end
-
   def items_per_merchant
     all_merchants.map do |merchant|
-      merchant.items.length
+      merchant.items.count
+    end
+  end
+
+  def invoices_per_merchant
+    all_merchants.map do |merchant|
+      merchant.invoices.count
     end
   end
 
