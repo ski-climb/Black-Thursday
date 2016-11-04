@@ -37,4 +37,5 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 141.42, @fixture_analyst.average_item_price_for_merchant(merchant_id).to_f
     assert_instance_of BigDecimal, @fixture_analyst.average_item_price_for_merchant(merchant_id)
   end
+
 end

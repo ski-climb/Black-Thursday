@@ -134,4 +134,13 @@ class IntegrationTest < Minitest::Test
     assert_equal 5, analyst.golden_items.length
     assert_instance_of Item, analyst.golden_items.first
   end
+
+  def test_it_calculates_average_invoices_per_merchant
+    sales_engine = SalesEngine.from_csv({
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 10.49, analyst.average_invoices_per_merchant
+  end
 end
