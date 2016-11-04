@@ -60,14 +60,19 @@ class SalesAnalyst
     end
   end
 
-  def item_standard_deviations(n)
+  def item_standard_deviations(num)
     average_items_per_merchant + \
-      n * average_items_per_merchant_standard_deviation
+      num * average_items_per_merchant_standard_deviation
   end
 
-  def price_standard_deviations(n)
+  def price_standard_deviations(num)
     average_unit_price_per_item + \
-      n * average_unit_price_per_item_standard_deviation
+      num * average_unit_price_per_item_standard_deviation
+  end
+
+  def invoice_standard_deviations(num)
+    average_invoices_per_merchant + \
+      num * average_invoices_per_merchant_standard_deviation
   end
 
   def average_item_price_for_merchant(id)
@@ -88,6 +93,20 @@ class SalesAnalyst
     plus_two_standard_deviations = price_standard_deviations(2)
     all_items.find_all do |item|
       item.unit_price >= plus_two_standard_deviations
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    plus_two_standard_deviations = invoice_standard_deviations(2)
+    all_merchants.find_all do |merchant|
+      merchant.invoices.count > plus_two_standard_deviations
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    minus_two_standard_deviations = invoice_standard_deviations(-2)
+    all_merchants.find_all do |merchant|
+      merchant.invoices.count < minus_two_standard_deviations
     end
   end
 

@@ -146,11 +146,35 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_average_invoices_per_merchant_standard_deviation
+    skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
     })
     analyst = SalesAnalyst.new(sales_engine)
     assert_equal 3.29, analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_calculates_top_merchants_by_invoice_count
+    skip "for speed!"
+    sales_engine = SalesEngine.from_csv({
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    results = analyst.top_merchants_by_invoice_count
+    assert_equal 12, results.count
+    assert_instance_of Merchant, results.first
+  end
+
+  def test_it_calculates_bottom_merchants_by_invoice_count
+    sales_engine = SalesEngine.from_csv({
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    results = analyst.bottom_merchants_by_invoice_count
+    assert_equal 4, results.count
+    assert_instance_of Merchant, results.first
   end
 end
