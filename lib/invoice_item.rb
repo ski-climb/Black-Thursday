@@ -1,5 +1,4 @@
 require 'bigdecimal'
-require 'chronic'
 
 class InvoiceItem
 
@@ -17,8 +16,8 @@ class InvoiceItem
     @invoice_id = data[:invoice_id].to_i
     @quantity = data[:quantity]
     @unit_price = BigDecimal.new(data[:unit_price], 4) / 100
-    @created_at = Chronic.parse(data[:created_at])
-    @updated_at = Chronic.parse(data[:updated_at])
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
   end
 
   def unit_price_to_dollars

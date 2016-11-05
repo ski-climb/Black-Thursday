@@ -1,5 +1,3 @@
-require 'chronic'
-
 class Invoice
 
   attr_reader :id,
@@ -15,8 +13,8 @@ class Invoice
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i
     @status = data[:status].to_sym
-    @created_at = Chronic.parse(data[:created_at] + " 00:00:00")
-    @updated_at = Chronic.parse(data[:updated_at] + " 00:00:00")
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
     @sales_engine = sales_engine
   end
 

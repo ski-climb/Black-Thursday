@@ -1,5 +1,3 @@
-require 'chronic'
-
 class Customer
 
   attr_reader :id,
@@ -12,7 +10,7 @@ class Customer
     @id = data[:id].to_i
     @first_name = data[:first_name]
     @last_name = data[:last_name]
-    @created_at = Chronic.parse(data[:created_at])
-    @updated_at = Chronic.parse(data[:updated_at])
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
   end
 end

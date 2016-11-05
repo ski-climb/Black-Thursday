@@ -8,7 +8,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     cane (3.0.0)
       parallel
-    chronic (0.10.2)
     codeclimate-engine-rb (0.4.0)
       virtus (~> 1.0)
     coderay (1.1.1)
@@ -70,7 +69,6 @@ PLATFORMS
 
 DEPENDENCIES
   cane
-  chronic
   minitest
   minitest-nyan-cat
   pry

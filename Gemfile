@@ -7,5 +7,4 @@ gem 'rspec', '~> 3.1.0'
 gem 'minitest'
 gem 'minitest-nyan-cat'
 gem 'pry'
-gem 'chronic'
 gem 'simplecov', :require => false

@@ -1,5 +1,4 @@
 require 'bigdecimal'
-require 'chronic'
 require_relative './sales_engine'
 
 class Item
@@ -19,8 +18,8 @@ class Item
     @description = data[:description]
     @merchant_id = data[:merchant_id].to_i
     @unit_price = BigDecimal.new(data[:unit_price], 4) / 100
-    @created_at = Chronic.parse(data[:created_at])
-    @updated_at = Chronic.parse(data[:updated_at])
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
     @sales_engine = sales_engine
   end
 
