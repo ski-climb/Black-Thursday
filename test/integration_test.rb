@@ -52,7 +52,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_can_import_the_provided_file_for_merchants
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -62,7 +62,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_can_import_the_provided_file_for_items
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -72,7 +72,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_can_import_the_provided_file_for_items
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv'
     })
@@ -83,7 +83,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_average_items_per_merchant_using_provided_data
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -93,7 +93,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_average_items_per_merchant_standard_deviation_using_provided_data
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -103,7 +103,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_merchants_with_high_item_count_using_provided_data
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -114,7 +114,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_average_average_price_per_merchant
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -125,7 +125,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_finds_the_golden_items
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -136,7 +136,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_average_invoices_per_merchant
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
@@ -146,7 +146,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_average_invoices_per_merchant_standard_deviation
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
@@ -156,7 +156,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_top_merchants_by_invoice_count
-    skip "for speed!"
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
@@ -168,6 +168,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_it_calculates_bottom_merchants_by_invoice_count
+    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
@@ -176,5 +177,25 @@ class IntegrationTest < Minitest::Test
     results = analyst.bottom_merchants_by_invoice_count
     assert_equal 4, results.count
     assert_instance_of Merchant, results.first
+  end
+
+  def test_it_calculates_top_days_by_invoice_count
+    # skip "for speed!"
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    # require 'pry'; binding.pry
+    assert_equal ["Wednesday"], analyst.top_days_by_invoice_count
+  end
+
+  def test_it_returns_the_percent_of_all_invoices_with_given_status
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    assert_equal 29.55, analyst.invoice_status(:pending)
+    assert_equal 56.95, analyst.invoice_status(:shipped)
+    assert_equal 13.50, analyst.invoice_status(:returned)
   end
 end
