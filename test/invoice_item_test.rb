@@ -12,6 +12,7 @@ class InvoiceItemTest < Minitest::Test
     invoice_item_unit_price = 7500
     invoice_item_created_at = '2013-03-27 14:54:09 UTC'
     invoice_item_updated_at = '2012-02-26 20:56:56 UTC'
+    sales_engine = Minitest::Mock.new
     @invoice_item = InvoiceItem.new({
       :id => invoice_item_id,
       :item_id => invoice_item_item_id,
@@ -20,7 +21,7 @@ class InvoiceItemTest < Minitest::Test
       :unit_price => invoice_item_unit_price,
       :created_at => invoice_item_created_at,
       :updated_at => invoice_item_updated_at
-    })
+    }, sales_engine)
   end
 
   def test_invoice_item_has_an_id
@@ -37,6 +38,10 @@ class InvoiceItemTest < Minitest::Test
 
   def test_invoice_item_has_a_quantity
     assert_equal 1, @invoice_item.quantity
+  end
+
+  def test_invoice_item_points_to_the_sales_engine
+    assert @invoice_item.sales_engine
   end
 
   def test_it_has_a_created_at
