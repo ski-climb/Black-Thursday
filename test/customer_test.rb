@@ -9,13 +9,14 @@ class CustomerTest < Minitest::Test
     customer_last_name = "Myers"
     customer_created_at = '2013-03-27 14:54:09 UTC'
     customer_updated_at = '2012-02-26 20:56:56 UTC'
+    sales_engine = Minitest::Mock.new
     @customer = Customer.new({
       :id => customer_id,
       :first_name => customer_first_name,
       :last_name => customer_last_name,
       :created_at => customer_created_at,
       :updated_at => customer_updated_at
-    })
+    }, sales_engine)
   end
 
   def test_customer_has_an_id
@@ -28,6 +29,10 @@ class CustomerTest < Minitest::Test
 
   def test_customer_has_a_last_name
     assert_equal "Myers", @customer.last_name
+  end
+
+  def test_customer_points_to_sales_engine
+    assert @customer.sales_engine
   end
 
   def test_it_has_a_created_at
