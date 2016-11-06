@@ -1,5 +1,8 @@
+require_relative './transaction'
+
 class TransactionRepository
-  attr_reader :all
+  attr_reader :all,
+              :sales_engine
 
   def initialize(sales_engine)
     @all = []
@@ -8,6 +11,12 @@ class TransactionRepository
 
   def <<(transaction)
     all.push(transaction)
+  end
+
+  def add_transactions(data)
+    data.each do |row|
+      all << Transaction.new(row, sales_engine)
+    end
   end
 
   def find_by_id(id)

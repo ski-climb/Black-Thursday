@@ -1,6 +1,7 @@
 require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
+require_relative './transaction_repository'
 require_relative './importer'
 
 class SalesEngine
@@ -17,6 +18,10 @@ class SalesEngine
     @all_invoices
   end
 
+  def self.transactions
+    @all_transactions
+  end
+
   def self.from_csv(data)
     import(data)
     self
@@ -26,6 +31,7 @@ class SalesEngine
     import_merchants(data[:merchants]) if data[:merchants]
     import_items(data[:items]) if data[:items]
     import_invoices(data[:invoices]) if data[:invoices]
+    import_transactions(data[:transactions]) if data[:transactions]
   end
 
   def self.import_merchants(path_and_filename)
@@ -46,6 +52,12 @@ class SalesEngine
     @all_invoices.add_invoices(contents)
   end
 
+  def self.import_transactions(path_and_filename)
+    @all_transactions = TransactionRepository.new(self)
+    contents = Importer.read_file(path_and_filename)
+    @all_transactions.add_transactions(contents)
+  end
+
   def self.find_items_by_merchant_id(id)
     items.find_all_by_merchant_id(id)
   end
@@ -61,5 +73,8 @@ class SalesEngine
   def self.find_merchant_by_invoice_id(id)
     merchants.find_by_id(id)
   end
-end
 
+  def self.find_transactions_by_invoice_id(id)
+    transactions.find_all_by_invoice_id(id)
+  end
+end

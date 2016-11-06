@@ -22,4 +22,8 @@ class Invoice
     sales_engine.find_merchant_by_invoice_id(merchant_id)
   end
 
+  def transactions
+    sales_engine.find_transactions_by_invoice_id(id)
+  end
+
 end

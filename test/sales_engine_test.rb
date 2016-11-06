@@ -2,6 +2,7 @@ require_relative './test_helper.rb'
 require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
+require_relative '../lib/transaction_repository'
 
 class SalesEngineTest < Minitest::Test
 
@@ -37,6 +38,12 @@ class SalesEngineTest < Minitest::Test
     path_and_filename = './test/fixtures/invoice_fixture.csv'
     sales_engine = SalesEngine.from_csv({:invoices => path_and_filename})
     assert_instance_of InvoiceRepository, sales_engine.invoices
+  end
+
+  def test_it_returns_a_transaction_repo
+    path_and_filename = './test/fixtures/transaction_fixture.csv'
+    sales_engine = SalesEngine.from_csv({:transactions => path_and_filename})
+    assert_instance_of TransactionRepository, sales_engine.transactions
   end
 
   def test_it_can_create_invoices_for_each_line_of_the_csv
@@ -93,5 +100,15 @@ class SalesEngineTest < Minitest::Test
     results = sales_engine.find_invoices_by_merchant_id(merchant_id)
     assert_equal 9, results.length
     assert_equal merchant_id, results.map(&:merchant_id).uniq.first
+  end
+
+  def test_it_can_find_transactions_by_invoice_id
+    invoice_id = 12341234
+    sales_engine = SalesEngine.from_csv({
+      :transactions => './test/fixtures/transaction_fixture.csv'
+    })
+    results = sales_engine.find_transactions_by_invoice_id(invoice_id)
+    assert_equal 3, results.length
+    assert_equal invoice_id, results.map(&:invoice_id).uniq.first
   end
 end

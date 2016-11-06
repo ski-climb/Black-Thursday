@@ -11,7 +11,7 @@ class InvoiceTest < Minitest::Test
     invoice_status = "pending"
     invoice_created_at = '2013-03-27'
     invoice_updated_at = '2012-02-26'
-    sales_engine = SalesEngine
+    sales_engine = Minitest::Mock.new
     @invoice = Invoice.new({
       :id => invoice_id,
       :customer_id => invoice_customer_id,
@@ -38,6 +38,10 @@ class InvoiceTest < Minitest::Test
     assert_equal :pending, @invoice.status
   end
 
+  def test_it_points_to_sales_engine
+    assert @invoice.sales_engine
+  end
+
   def test_it_has_a_created_at
     created_at = Time.parse('2013-03-27')
     assert_equal created_at, @invoice.created_at
@@ -48,7 +52,11 @@ class InvoiceTest < Minitest::Test
     assert_equal updated_at, @invoice.updated_at
   end
 
-  def test_invoice_responds_to_merchant
+  def test_it_responds_to_merchant
     assert_respond_to @invoice, :merchant
+  end
+
+  def test_it_responds_to_transactions
+    assert_respond_to @invoice, :transactions
   end
 end

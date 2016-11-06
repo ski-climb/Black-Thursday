@@ -6,6 +6,17 @@ require_relative '../lib/merchant_repository'
 
 class InvoiceAnalyzerTest < Minitest::Test
 
+  def test_it_can_import_the_provided_file_for_invoices
+    # skip "for speed!"
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv'
+    })
+    results = sales_engine.invoices
+    assert_equal 4985, results.all.count
+    assert results.find_by_id(6)
+    assert results.find_by_id(4977)
+  end
+
   def test_an_invoice_can_find_its_merchant
     sales_engine = SalesEngine.from_csv({
       :merchants => './test/fixtures/merchant_fixture.csv',
@@ -17,15 +28,16 @@ class InvoiceAnalyzerTest < Minitest::Test
     assert_equal merchant, invoice.merchant
   end
 
-  def test_it_can_import_the_provided_file_for_invoices
-    # skip "for speed!"
+  def test_an_invoice_can_find_its_transactions
     sales_engine = SalesEngine.from_csv({
-      :invoices => './data/invoices.csv'
+      :transactions => './test/fixtures/transaction_fixture.csv',
+      :invoices => './test/fixtures/invoice_fixture.csv'
     })
-    results = sales_engine.invoices
-    assert_equal 4985, results.all.count
-    assert results.find_by_id(6)
-    assert results.find_by_id(4977)
+    invoice_id = 12341234
+    invoice = sales_engine.invoices.find_by_id(invoice_id)
+    transactions = sales_engine.transactions.find_all_by_invoice_id(invoice_id)
+    assert_equal transactions, invoice.transactions
+    assert_equal 3, transactions.count
   end
 
   def test_it_calculates_top_days_by_invoice_count
