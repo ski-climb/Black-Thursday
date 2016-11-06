@@ -44,4 +44,8 @@ class CustomerTest < Minitest::Test
     updated_at = Time.gm(2012, 2, 26, 20, 56, 56)
     assert_equal updated_at, @customer.updated_at
   end
+
+  def test_it_responds_to_merchants
+    assert_respond_to @customer, :merchants
+  end
 end

@@ -43,4 +43,17 @@ class IntegrationTest < Minitest::Test
     assert_instance_of Customer, merchant.customers.first
     assert_equal 12, merchant.customers.count
   end
+
+  def test_it_finds_all_merchants_for_a_given_customer
+    sales_engine = SalesEngine.from_csv({
+      :customers => './data/customers.csv',
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv'
+    })
+    customer = sales_engine.customers.find_by_id(1)
+    assert customer
+    assert customer.merchants
+    assert_instance_of Merchant, customer.merchants.first
+    assert_equal 8, customer.merchants.count
+  end
 end

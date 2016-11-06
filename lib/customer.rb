@@ -15,4 +15,8 @@ class Customer
     @updated_at = Time.parse(data[:updated_at])
     @sales_engine = sales_engine
   end
+
+  def merchants
+    sales_engine.find_merchants_by_customer_id(id)
+  end
 end

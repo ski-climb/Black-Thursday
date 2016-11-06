@@ -71,10 +71,38 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal first_name, results.map(&:first_name).uniq.first
   end
 
+  def test_find_all_by_first_name_is_case_insensitive
+    first_name = "ted"
+    results = @customer_repository.find_all_by_first_name(first_name)
+    assert_equal 2, results.count
+    assert_equal "Ted", results.map(&:first_name).uniq.first
+  end
+
+  def test_find_all_by_first_name_works_for_partial_names
+    first_name = "ed"
+    results = @customer_repository.find_all_by_first_name(first_name)
+    assert_equal 2, results.count
+    assert_equal "Ted", results.map(&:first_name).uniq.first
+  end
+
   def test_it_can_find_all_customers_with_given_last_name
     last_name = "Tester"
     results = @customer_repository.find_all_by_last_name(last_name)
     assert_equal 2, results.count
     assert_equal last_name, results.map(&:last_name).uniq.first
+  end
+
+  def test_find_all_by_last_name_is_case_insensitive
+    last_name = "tester"
+    results = @customer_repository.find_all_by_last_name(last_name)
+    assert_equal 2, results.count
+    assert_equal "Tester", results.map(&:last_name).uniq.first
+  end
+
+  def test_find_all_by_last_name_is_case_insensitive
+    last_name = "ster"
+    results = @customer_repository.find_all_by_last_name(last_name)
+    assert_equal 2, results.count
+    assert_equal "Tester", results.map(&:last_name).uniq.first
   end
 end
