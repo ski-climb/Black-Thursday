@@ -20,4 +20,8 @@ class Transaction
     @sales_engine = sales_engine
   end
 
+  def invoice
+    sales_engine.find_invoice_by_id(invoice_id)
+  end
+
 end

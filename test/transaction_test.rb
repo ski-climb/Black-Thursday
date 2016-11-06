@@ -47,6 +47,10 @@ class TransactionTest < Minitest::Test
     assert @transaction.sales_engine
   end
 
+  def test_it_responds_to_invoice
+    assert_respond_to @transaction, :invoice
+  end
+
   def test_it_has_a_created_at
     created_at = Time.gm(2013, 3, 27, 14, 54, 9)
     assert_equal created_at, @transaction.created_at

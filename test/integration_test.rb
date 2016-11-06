@@ -16,7 +16,18 @@ class IntegrationTest < Minitest::Test
     invoice_id = 1
     invoice = sales_engine.invoices.find_by_id(invoice_id)
     assert invoice.items
-    assert_equal 8, invoice.items.length
     assert_instance_of Item, invoice.items.first
+    assert_equal 8, invoice.items.length
+  end
+
+  def test_a_transaction_can_find_its_invoice
+    sales_engine = SalesEngine.from_csv({
+      :transactions => './data/transactions.csv',
+      :invoices => './data/invoices.csv'
+    })
+    transaction = sales_engine.transactions.find_by_id(1)
+    assert transaction
+    assert transaction.invoice
+    assert_instance_of Invoice, transaction.invoice
   end
 end

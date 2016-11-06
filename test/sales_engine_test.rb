@@ -124,4 +124,13 @@ class SalesEngineTest < Minitest::Test
     assert_equal 3, results.length
     assert_equal invoice_id, results.map(&:invoice_id).uniq.first
   end
+
+  def test_it_can_find_invoices_by_id
+    invoice_id = 12341234
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './test/fixtures/invoice_fixture.csv'
+    })
+    invoice = sales_engine.find_invoice_by_id(invoice_id)
+    assert_equal invoice_id, invoice.id
+  end
 end

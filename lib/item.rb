@@ -28,7 +28,6 @@ class Item
   end
 
   def merchant
-    sales_engine.find_merchant_by_item_id(merchant_id)
+    sales_engine.find_merchant_by_id(merchant_id)
   end
-
 end

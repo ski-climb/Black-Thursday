@@ -19,7 +19,7 @@ class Invoice
   end
 
   def merchant
-    sales_engine.find_merchant_by_invoice_id(merchant_id)
+    sales_engine.find_merchant_by_id(merchant_id)
   end
 
   def transactions
@@ -27,7 +27,7 @@ class Invoice
   end
 
   def customer
-    sales_engine.find_customer_by_invoice_id(customer_id)
+    sales_engine.find_customer_by_id(customer_id)
   end
 
   def items
