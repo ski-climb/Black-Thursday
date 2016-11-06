@@ -67,4 +67,8 @@ class InvoiceTest < Minitest::Test
   def test_it_responds_to_items
     assert_respond_to @invoice, :items
   end
+
+  def test_it_responds_to_is_paid_in_full
+    assert_respond_to @invoice, :is_paid_in_full?
+  end
 end

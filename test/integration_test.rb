@@ -56,4 +56,14 @@ class IntegrationTest < Minitest::Test
     assert_instance_of Merchant, customer.merchants.first
     assert_equal 8, customer.merchants.count
   end
+
+  def test_it_returns_that_an_invoice_has_been_paid_in_full
+    sales_engine = SalesEngine.from_csv({
+      :transactions => './data/transactions.csv',
+      :invoices => './data/invoices.csv'
+    })
+    invoice = sales_engine.invoices.find_by_id(1)
+    assert invoice
+    assert invoice.is_paid_in_full?
+  end
 end

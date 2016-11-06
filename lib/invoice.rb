@@ -33,4 +33,8 @@ class Invoice
   def items
     sales_engine.find_items_by_invoice_id(id)
   end
+
+  def is_paid_in_full?
+    sales_engine.invoice_paid_in_full?(id)
+  end
 end

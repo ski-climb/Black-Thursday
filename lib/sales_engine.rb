@@ -158,4 +158,17 @@ class SalesEngine
       merchants.find_by_id(id)
     end
   end
+
+  def self.invoice_paid_in_full?(id)
+    results = collect_transactions_by_invoice_id(id)
+    success?(results)
+  end
+
+  def self.collect_transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id).map(&:result)
+  end
+
+  def self.success?(results)
+    !results.empty? && results.all? { |result| result == "success" }
+  end
 end

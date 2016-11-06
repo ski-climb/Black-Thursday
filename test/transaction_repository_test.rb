@@ -77,7 +77,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal id, @transaction_repository.find_by_id(id).id
   end
 
-  def test_it_can_find_all_invoices_with_given_invoice_id
+  def test_it_can_find_all_transactions_with_given_invoice_id
     invoice_id = 123
     results = @transaction_repository.find_all_by_invoice_id(invoice_id)
     assert_equal 2, results.count
