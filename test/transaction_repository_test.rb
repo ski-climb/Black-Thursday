@@ -88,7 +88,7 @@ class TransactionRepositoryTest < Minitest::Test
     credit_card_number = 4242424242424242
     results = @transaction_repository.find_all_by_credit_card_number(credit_card_number)
     assert_equal 2, results.count
-    assert_equal credit_card_number.to_s, results.map(&:credit_card_number).uniq.first
+    assert_equal credit_card_number, results.map(&:credit_card_number).uniq.first
   end
 
   def test_it_can_find_all_transactions_by_given_result

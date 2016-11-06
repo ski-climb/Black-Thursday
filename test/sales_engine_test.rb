@@ -53,6 +53,12 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of CustomerRepository, sales_engine.customers
   end
 
+  def test_it_returns_an_invoice_item_repo
+    path_and_filename = './test/fixtures/invoice_item_fixture.csv'
+    sales_engine = SalesEngine.from_csv({:invoice_items => path_and_filename})
+    assert_instance_of InvoiceItemRepository, sales_engine.invoice_items
+  end
+
   def test_it_can_create_invoices_for_each_line_of_the_csv
     number_of_invoices = 99
     sales_engine = SalesEngine.from_csv({

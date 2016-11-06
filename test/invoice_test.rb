@@ -63,4 +63,8 @@ class InvoiceTest < Minitest::Test
   def test_it_responds_to_customer
     assert_respond_to @invoice, :customer
   end
+
+  def test_it_responds_to_items
+    assert_respond_to @invoice, :items
+  end
 end

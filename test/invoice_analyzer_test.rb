@@ -58,7 +58,6 @@ class InvoiceAnalyzerTest < Minitest::Test
       :invoices => './data/invoices.csv'
     })
     analyst = SalesAnalyst.new(sales_engine)
-    # require 'pry'; binding.pry
     assert_equal ["Wednesday"], analyst.top_days_by_invoice_count
   end
 

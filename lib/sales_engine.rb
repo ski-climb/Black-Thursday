@@ -3,6 +3,7 @@ require_relative './item_repository'
 require_relative './invoice_repository'
 require_relative './transaction_repository'
 require_relative './customer_repository'
+require_relative './invoice_item_repository'
 require_relative './importer'
 
 class SalesEngine
@@ -27,6 +28,10 @@ class SalesEngine
     @all_customers
   end
 
+  def self.invoice_items
+    @all_invoice_items
+  end
+
   def self.from_csv(data)
     import(data)
     self
@@ -38,6 +43,7 @@ class SalesEngine
     import_invoices(data[:invoices]) if data[:invoices]
     import_transactions(data[:transactions]) if data[:transactions]
     import_customers(data[:customers]) if data[:customers]
+    import_invoice_items(data[:invoice_items]) if data[:invoice_items]
   end
 
   def self.import_merchants(path_and_filename)
@@ -70,6 +76,11 @@ class SalesEngine
     @all_customers.add_customers(contents)
   end
 
+  def self.import_invoice_items(path_and_filename)
+    @all_invoice_items = InvoiceItemRepository.new(self)
+    contents = Importer.read_file(path_and_filename)
+    @all_invoice_items.add_invoice_items(contents)
+  end
 
   def self.find_items_by_merchant_id(id)
     items.find_all_by_merchant_id(id)
@@ -93,5 +104,15 @@ class SalesEngine
 
   def self.find_transactions_by_invoice_id(id)
     transactions.find_all_by_invoice_id(id)
+  end
+
+  def self.find_items_by_invoice_id(id)
+    list_of_item_ids = invoice_items.find_all_by_invoice_id(id).map(&:item_id)
+
+    resulting_items = []
+    list_of_item_ids.each do |id|
+      resulting_items << items.find_by_id(id)
+    end
+    resulting_items
   end
 end

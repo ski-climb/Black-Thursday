@@ -29,4 +29,8 @@ class Invoice
   def customer
     sales_engine.find_customer_by_invoice_id(customer_id)
   end
+
+  def items
+    sales_engine.find_items_by_invoice_id(id)
+  end
 end
