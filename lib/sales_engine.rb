@@ -107,12 +107,19 @@ class SalesEngine
   end
 
   def self.find_items_by_invoice_id(id)
-    list_of_item_ids = invoice_items.find_all_by_invoice_id(id).map(&:item_id)
+    list_of_item_ids = collect_item_ids(id)
+    collect_items(list_of_item_ids)
+  end
 
-    resulting_items = []
-    list_of_item_ids.each do |id|
-      resulting_items << items.find_by_id(id)
+  def self.collect_item_ids(invoice_id)
+    invoice_items
+    .find_all_by_invoice_id(invoice_id)
+    .map(&:item_id)
+  end
+
+  def self.collect_items(item_ids)
+    item_ids.map do |id|
+      items.find_by_id(id)
     end
-    resulting_items
   end
 end
