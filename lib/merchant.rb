@@ -19,4 +19,8 @@ class Merchant
   def invoices
     sales_engine.find_invoices_by_merchant_id(id)
   end
+
+  def customers
+    sales_engine.find_customers_by_merchant_id(id)
+  end
 end

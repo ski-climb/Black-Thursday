@@ -8,6 +8,7 @@ require_relative '../lib/item_repository'
 class IntegrationTest < Minitest::Test
 
   def test_an_invoice_can_list_all_items_for_that_invoice
+    skip
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv',
       :invoice_items => './data/invoice_items.csv',
@@ -21,6 +22,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_a_transaction_can_find_its_invoice
+    skip
     sales_engine = SalesEngine.from_csv({
       :transactions => './data/transactions.csv',
       :invoices => './data/invoices.csv'
@@ -29,5 +31,19 @@ class IntegrationTest < Minitest::Test
     assert transaction
     assert transaction.invoice
     assert_instance_of Invoice, transaction.invoice
+  end
+
+  def test_it_finds_all_customers_for_given_merchant
+    sales_engine = SalesEngine.from_csv({
+      :customers => './data/customers.csv',
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv'
+    })
+    merchant = sales_engine.merchants.find_by_id(12334194)
+    assert merchant
+    assert merchant.customers
+    assert_instance_of Customer, merchant.customers.first
+    # require 'pry'; binding.pry
+    assert_equal 12, merchant.customers.count
   end
 end

@@ -111,15 +111,33 @@ class SalesEngine
     collect_items(list_of_item_ids)
   end
 
+  def self.find_customers_by_merchant_id(id)
+    list_of_customer_ids = collect_customer_ids(id)
+    results = collect_customers(list_of_customer_ids)
+  end
+
   def self.collect_item_ids(invoice_id)
     invoice_items
     .find_all_by_invoice_id(invoice_id)
     .map(&:item_id)
   end
 
+  def self.collect_customer_ids(merchant_id)
+    invoices
+    .find_all_by_merchant_id(merchant_id)
+    .map(&:customer_id)
+    .uniq
+  end
+
   def self.collect_items(item_ids)
     item_ids.map do |id|
       items.find_by_id(id)
+    end
+  end
+
+  def self.collect_customers(customer_ids)
+    customer_ids.map do |id|
+      customers.find_by_id(id)
     end
   end
 end

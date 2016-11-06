@@ -13,23 +13,27 @@ class MerchantTest < Minitest::Test
     }, sales_engine)
   end
 
-  def test_merchants_have_ids
+  def test_it_has_ids
     assert_equal 12345678, @merchant.id
   end
 
-  def test_merchants_have_names
+  def test_it_has_names
     assert_equal "IronCompassFlight", @merchant.name
   end
 
-  def test_merchants_point_to_the_sales_engine
+  def test_it_points_to_the_sales_engine
     assert_kind_of Class, @merchant.sales_engine
   end
 
-  def test_merchants_respond_to_items_method
+  def test_it_responds_to_items_method
     assert_respond_to @merchant, :items
   end
   
-  def test_merchants_respond_to_invoices_method
+  def test_it_responds_to_invoices_method
     assert_respond_to @merchant, :invoices
+  end
+
+  def test_it_responds_to_custoomers
+    assert_respond_to @merchant, :customers
   end
 end
