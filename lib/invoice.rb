@@ -37,4 +37,8 @@ class Invoice
   def is_paid_in_full?
     sales_engine.invoice_paid_in_full?(id)
   end
+
+  def total
+    sales_engine.total_price_by_invoice(id)
+  end
 end

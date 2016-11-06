@@ -121,6 +121,10 @@ class SalesEngine
     collect_merchants(list_of_merchant_ids)
   end
 
+  def self.find_all_invoice_items_by_invoice_id(id)
+    invoice_items.find_all_by_invoice_id(id)
+  end
+
   def self.collect_merchant_ids(customer_id)
     invoices
     .find_all_by_customer_id(customer_id)
@@ -170,5 +174,17 @@ class SalesEngine
 
   def self.success?(results)
     !results.empty? && results.all? { |result| result == "success" }
+  end
+
+  def self.total_price_by_invoice(invoice_id)
+    return 0 unless invoice_paid_in_full?(invoice_id)
+    sum_of_items_on_invoice(invoice_id)
+  end
+
+  def self.sum_of_items_on_invoice(invoice_id)
+    find_all_invoice_items_by_invoice_id(invoice_id)
+    .map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity.to_i
+    end.reduce(:+)
   end
 end

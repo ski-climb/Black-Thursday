@@ -66,4 +66,27 @@ class IntegrationTest < Minitest::Test
     assert invoice
     assert invoice.is_paid_in_full?
   end
+
+  def test_it_returns_zero_for_invoice_total_when_transaction_fails
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv'
+    })
+    invoice = sales_engine.invoices.find_by_id(1752)
+    assert invoice
+    assert_equal 0, invoice.total
+  end
+
+  def test_it_returns_total_price_of_all_items_on_an_invoice
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv'
+    })
+    invoice = sales_engine.invoices.find_by_id(1)
+    assert invoice
+    assert_instance_of BigDecimal, invoice.total
+    assert_equal 21067.77, invoice.total
+  end
 end
