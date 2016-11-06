@@ -28,4 +28,6 @@ class CustomerRepository
       customer.last_name == name
     end
   end
+
+  def inspect; end
 end

@@ -27,4 +27,5 @@ class InvoiceItemRepository
     end
   end
 
+  def inspect; end
 end

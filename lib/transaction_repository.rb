@@ -42,4 +42,6 @@ class TransactionRepository
       transaction.invoice_id == invoice_id
     end
   end
+
+  def inspect; end
 end
