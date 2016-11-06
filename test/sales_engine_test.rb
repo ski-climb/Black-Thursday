@@ -3,6 +3,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
 
 class SalesEngineTest < Minitest::Test
 
@@ -44,6 +45,12 @@ class SalesEngineTest < Minitest::Test
     path_and_filename = './test/fixtures/transaction_fixture.csv'
     sales_engine = SalesEngine.from_csv({:transactions => path_and_filename})
     assert_instance_of TransactionRepository, sales_engine.transactions
+  end
+
+  def test_it_returns_a_customer_repo
+    path_and_filename = './test/fixtures/customer_fixture.csv'
+    sales_engine = SalesEngine.from_csv({:customers => path_and_filename})
+    assert_instance_of CustomerRepository, sales_engine.customers
   end
 
   def test_it_can_create_invoices_for_each_line_of_the_csv

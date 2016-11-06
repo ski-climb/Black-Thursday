@@ -26,4 +26,7 @@ class Invoice
     sales_engine.find_transactions_by_invoice_id(id)
   end
 
+  def customer
+    sales_engine.find_customer_by_invoice_id(customer_id)
+  end
 end

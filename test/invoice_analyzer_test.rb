@@ -28,6 +28,18 @@ class InvoiceAnalyzerTest < Minitest::Test
     assert_equal merchant, invoice.merchant
   end
 
+  def test_an_invoice_can_find_its_customer
+    sales_engine = SalesEngine.from_csv({
+      :customers => './test/fixtures/customer_fixture.csv',
+      :invoices => './test/fixtures/invoice_fixture.csv'
+    })
+    customer_id = 12341234
+    customer = sales_engine.customers.find_by_id(customer_id)
+    invoice = sales_engine.invoices.find_all_by_customer_id(customer_id).first
+    assert invoice.customer
+    assert_equal customer, invoice.customer
+  end
+
   def test_an_invoice_can_find_its_transactions
     sales_engine = SalesEngine.from_csv({
       :transactions => './test/fixtures/transaction_fixture.csv',

@@ -1,3 +1,5 @@
+require_relative './customer'
+
 class CustomerRepository
   attr_reader :all,
               :sales_engine
@@ -9,6 +11,12 @@ class CustomerRepository
 
   def <<(customer)
     all.push(customer)
+  end
+
+  def add_customers(data)
+    data.each do |row|
+      all << Customer.new(row, sales_engine)
+    end
   end
 
   def find_by_id(id)
