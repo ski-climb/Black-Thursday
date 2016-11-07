@@ -82,47 +82,47 @@ class SalesEngine
     @all_invoice_items.add_invoice_items(contents)
   end
 
-  def self.find_items_by_merchant_id(id)
-    items.find_all_by_merchant_id(id)
+  def self.find_items_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
   end
 
-  def self.find_invoices_by_merchant_id(id)
-    invoices.find_all_by_merchant_id(id)
+  def self.find_invoices_by_merchant_id(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  def self.find_merchant_by_id(id)
-    merchants.find_by_id(id)
+  def self.find_merchant_by_id(merchant_id)
+    merchants.find_by_id(merchant_id)
   end
 
-  def self.find_customer_by_id(id)
-    customers.find_by_id(id)
+  def self.find_customer_by_id(customer_id)
+    customers.find_by_id(customer_id)
   end
 
-  def self.find_transactions_by_invoice_id(id)
-    transactions.find_all_by_invoice_id(id)
+  def self.find_transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
-  def self.find_invoice_by_id(id)
-    invoices.find_by_id(id)
+  def self.find_invoice_by_id(invoice_id)
+    invoices.find_by_id(invoice_id)
   end
 
-  def self.find_items_by_invoice_id(id)
-    list_of_item_ids = collect_item_ids(id)
+  def self.find_items_by_invoice_id(invoice_id)
+    list_of_item_ids = collect_item_ids(invoice_id)
     collect_items(list_of_item_ids)
   end
 
-  def self.find_customers_by_merchant_id(id)
-    list_of_customer_ids = collect_customer_ids(id)
+  def self.find_customers_by_merchant_id(merchant_id)
+    list_of_customer_ids = collect_customer_ids(merchant_id)
     collect_customers(list_of_customer_ids)
   end
 
-  def self.find_merchants_by_customer_id(id)
-    list_of_merchant_ids = collect_merchant_ids(id)
+  def self.find_merchants_by_customer_id(customer_id)
+    list_of_merchant_ids = collect_merchant_ids(customer_id)
     collect_merchants(list_of_merchant_ids)
   end
 
-  def self.find_all_invoice_items_by_invoice_id(id)
-    invoice_items.find_all_by_invoice_id(id)
+  def self.find_all_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
   end
 
   def self.collect_merchant_ids(customer_id)
@@ -163,8 +163,8 @@ class SalesEngine
     end
   end
 
-  def self.invoice_paid_in_full?(id)
-    results = collect_transactions_by_invoice_id(id)
+  def self.invoice_paid_in_full?(invoice_id)
+    results = collect_transactions_by_invoice_id(invoice_id)
     success?(results)
   end
 

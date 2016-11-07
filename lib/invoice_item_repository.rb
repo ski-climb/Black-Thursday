@@ -19,9 +19,9 @@ class InvoiceItemRepository
     end
   end
 
-  def find_by_id(id)
+  def find_by_id(invoice_item_id)
     all.find do |invoice_item|
-      invoice_item.id == id
+      invoice_item.id == invoice_item_id
     end
   end
 

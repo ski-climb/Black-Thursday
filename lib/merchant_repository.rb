@@ -17,9 +17,9 @@ class MerchantRepository
     end
   end
 
-  def find_by_id(id)
+  def find_by_id(merchant_id)
     all.find do |merchant|
-      merchant.id == id.to_i
+      merchant.id == merchant_id.to_i
     end
   end
 

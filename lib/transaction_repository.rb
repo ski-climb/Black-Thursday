@@ -19,9 +19,9 @@ class TransactionRepository
     end
   end
 
-  def find_by_id(id)
+  def find_by_id(transaction_id)
     all.find do |transaction|
-      transaction.id == id
+      transaction.id == transaction_id.to_i
     end
   end
 

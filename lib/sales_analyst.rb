@@ -122,8 +122,8 @@ class SalesAnalyst
       num * average_invoices_per_merchant_standard_deviation
   end
 
-  def average_item_price_for_merchant(id)
-    merchant = sales_engine.merchants.find_by_id(id)
+  def average_item_price_for_merchant(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
     number_of_items = merchant.items.count
     price_of_items = merchant.items.map(&:unit_price).reduce(:+)
     return (price_of_items / number_of_items).round(2)
