@@ -44,12 +44,13 @@ class SalesEngine
   end
 
   def self.invoice_paid_in_full?(invoice_id)
-    results = collect_transactions_by_invoice_id(invoice_id)
-    success?(results)
+    transactions = collect_transactions_by_invoice_id(invoice_id)
+    success?(transactions)
   end
 
-  def self.success?(results)
-    !results.empty? && results.all? { |result| result == "success" }
+  def self.success?(transactions)
+    !transactions.map(&:result).empty? && \
+    transactions.any? { |t| t.result == "success" }
   end
 
   def self.successfully_charged_total_for_invoice(invoice_id)

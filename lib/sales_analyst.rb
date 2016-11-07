@@ -88,4 +88,15 @@ class SalesAnalyst
     invoices = sales_engine.find_invoices_by_merchant_id(merchant_id)
     sum_of_successful_charges_for_invoices(invoices)
   end
+
+  def top_revenue_earners(number_of_merchants = 20)
+    merchants_ranked_by_revenue
+    .take(number_of_merchants)
+  end
+
+  def merchants_ranked_by_revenue
+    all_merchants.sort_by do |merchant|
+      revenue_by_merchant(merchant.id).to_f
+    end.reverse
+  end
 end

@@ -39,6 +39,6 @@ module Collector
   end
 
   def collect_transactions_by_invoice_id(invoice_id)
-    transactions.find_all_by_invoice_id(invoice_id).map(&:result)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 end
