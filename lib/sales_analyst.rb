@@ -83,4 +83,9 @@ class SalesAnalyst
     invoices = sales_engine.find_all_invoices_by_date(date)
     sum_of_successful_charges_for_invoices(invoices)
   end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = sales_engine.find_invoices_by_merchant_id(merchant_id)
+    sum_of_successful_charges_for_invoices(invoices)
+  end
 end
