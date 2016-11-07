@@ -29,7 +29,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :customer_id => 5432,
       :merchant_id => 6543,
       :status      => :pending,
-      :created_at  => '2009-02-07',
+      :created_at  => '2008-02-07',
       :updated_at  => '2015-03-13'
     }, @sales_engine)
     @invoice_repository << @invoice_1
@@ -93,5 +93,12 @@ class InvoiceRepositoryTest < Minitest::Test
     results = @invoice_repository.find_all_by_status(status)
     assert_equal 2, results.count
     assert_equal status, results.map(&:status).uniq.first
+  end
+
+  def test_it_finds_all_by_created_at
+    date_time = Time.parse('2009-02-07')
+    results = @invoice_repository.find_all_by_created_at(date_time)
+    assert_equal 2, results.count
+    assert_equal date_time, results.map(&:created_at).uniq.first
   end
 end

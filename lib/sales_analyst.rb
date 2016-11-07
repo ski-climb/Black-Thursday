@@ -78,4 +78,9 @@ class SalesAnalyst
       invoice.status == status
     end.count
   end
+
+  def total_revenue_by_date(date)
+    invoices = sales_engine.find_all_invoices_by_date(date)
+    sum_of_successful_charges_for_invoices(invoices)
+  end
 end

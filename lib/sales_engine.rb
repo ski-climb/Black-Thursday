@@ -52,12 +52,14 @@ class SalesEngine
     !results.empty? && results.all? { |result| result == "success" }
   end
 
-  def self.total_price_by_invoice(invoice_id)
+  def self.successfully_charged_total_for_invoice(invoice_id)
     return 0 unless invoice_paid_in_full?(invoice_id)
-    sum_of_items_on_invoice(invoice_id)
+    total_cost_of_all_items_on_invoice(invoice_id)
   end
 
-  def self.sum_of_items_on_invoice(invoice_id)
+  def self.total_cost_of_all_items_on_invoice(invoice_id)
+    # TODO 
+    # the second half of this method should be broken out
     find_all_invoice_items_by_invoice_id(invoice_id)
     .map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity.to_i

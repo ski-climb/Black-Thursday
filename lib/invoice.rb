@@ -39,6 +39,6 @@ class Invoice
   end
 
   def total
-    sales_engine.total_price_by_invoice(id)
+    sales_engine.successfully_charged_total_for_invoice(id)
   end
 end

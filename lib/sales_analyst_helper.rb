@@ -138,4 +138,17 @@ module SalesAnalystHelper
   def average_invoices_per_day_of_week
     result = total_number_of_invoices / @weekdays.length.to_f
   end
+
+  def successfully_charged_total_by_invoice(invoices)
+    invoices.find_all do |invoice|
+      sales_engine.successfully_charged_total_for_invoice(invoice.id) != 0
+    end
+  end
+
+  def sum_of_successful_charges_for_invoices(invoices)
+    successfully_charged_total_by_invoice(invoices).map do |invoice|
+      sales_engine.total_cost_of_all_items_on_invoice(invoice.id)
+    end
+    .reduce(:+)
+  end
 end

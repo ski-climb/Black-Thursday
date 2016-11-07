@@ -43,4 +43,7 @@ module Finder
     invoice_items.find_all_by_invoice_id(invoice_id)
   end
 
+  def find_all_invoices_by_date(date)
+    invoices.find_all_by_created_at(date)
+  end
 end

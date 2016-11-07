@@ -41,5 +41,13 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_created_at(date_time)
+    all.find_all do |invoice|
+      invoice.created_at == date_time
+    end
+  end
+
+
+
   def inspect; end
 end

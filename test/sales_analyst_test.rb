@@ -38,4 +38,15 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, @fixture_analyst.average_item_price_for_merchant(merchant_id)
   end
 
+  def test_it_calculates_total_revenue_by_date
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    date = Time.parse('2009-02-07')
+    assert analyst
+    assert_equal 21_067.77, analyst.total_revenue_by_date(date)
+  end
 end
