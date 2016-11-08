@@ -99,7 +99,7 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Tester", results.map(&:last_name).uniq.first
   end
 
-  def test_find_all_by_last_name_is_case_insensitive
+  def test_find_all_by_last_name_works_for_partial_names
     last_name = "ster"
     results = @customer_repository.find_all_by_last_name(last_name)
     assert_equal 2, results.count

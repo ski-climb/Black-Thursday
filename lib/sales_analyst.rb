@@ -95,6 +95,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
+    # TODO; mock out .has_pending_invoice? test
     all_merchants.find_all do |merchant|
       merchant.has_pending_invoice?
     end
@@ -104,5 +105,12 @@ class SalesAnalyst
     all_merchants.find_all do |merchant|
       merchant.items.count == 1
     end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants = all_merchants.find_all do |merchant|
+      merchant.created_at_month == month
+    end
+    merchants & merchants_with_only_one_item
   end
 end

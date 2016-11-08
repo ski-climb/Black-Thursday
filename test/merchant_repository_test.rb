@@ -7,9 +7,24 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine
     @merchant_repository = MerchantRepository.new(@sales_engine)
-    merchant_1 = Merchant.new({:id => 1, :name => "King Soopers"}, @sales_engine)
-    merchant_2 = Merchant.new({:id => 2, :name => "Whole Foods"}, @sales_engine)
-    merchant_3 = Merchant.new({:id => 3, :name => "Subway"}, @sales_engine)
+    merchant_1 = Merchant.new({
+      :id => 1, 
+      :name => "King Soopers",
+      :created_at => '2012-07-25',
+      :updated_at => '2009-05-30'
+    }, @sales_engine)
+    merchant_2 = Merchant.new({
+      :id => 2, 
+      :name => "Whole Foods",
+      :created_at => '2012-07-25',
+      :updated_at => '2009-05-30'
+    }, @sales_engine)
+    merchant_3 = Merchant.new({
+      :id => 3, 
+      :name => "Subway",
+      :created_at => '2012-07-25',
+      :updated_at => '2009-05-30'
+    }, @sales_engine)
     @merchant_repository << merchant_1
     @merchant_repository << merchant_2
     @merchant_repository << merchant_3
@@ -52,8 +67,18 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_returns_merchant_with_given_name_stub
-    merchant_4 = Merchant.new({:id => 4, :name => "Domino's Pizza"}, @sales_engine)
-    merchant_5 = Merchant.new({:id => 5, :name => "Pizza Hut"}, @sales_engine)
+    merchant_4 = Merchant.new({
+      :id => 4, 
+      :name => "Domino's Pizza",
+      :created_at => '2009-05-30',
+      :updated_at => '2012-07-25'
+    }, @sales_engine)
+    merchant_5 = Merchant.new({
+      :id => 5, 
+      :name => "Pizza Hut",
+      :created_at => '2009-05-30',
+      :updated_at => '2012-07-25'
+    }, @sales_engine)
     @merchant_repository.all << merchant_4
     @merchant_repository.all << merchant_5
     results = @merchant_repository.find_all_by_name("zza")
@@ -62,8 +87,18 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_is_case_insensitive
-    merchant_4 = Merchant.new({:id => 4, :name => "Domino's Pizza"}, @sales_engine)
-    merchant_5 = Merchant.new({:id => 5, :name => "Pizza Hut"}, @sales_engine)
+    merchant_4 = Merchant.new({
+      :id => 4, 
+      :name => "Domino's Pizza",
+      :created_at => '2009-05-30',
+      :updated_at => '2012-07-25'
+    }, @sales_engine)
+    merchant_5 = Merchant.new({
+      :id => 5, 
+      :name => "Pizza Hut",
+      :created_at => '2009-05-30',
+      :updated_at => '2012-07-25'
+    }, @sales_engine)
     @merchant_repository.all << merchant_4
     @merchant_repository.all << merchant_5
     results = @merchant_repository.find_all_by_name("PIZZA")
