@@ -113,4 +113,51 @@ class SalesAnalyst
     end
     merchants & merchants_with_only_one_item
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    #TODO refactor!!
+    merchant = sales_engine.find_merchant_by_id(merchant_id)
+
+    paid_invoice_ids = paid_invoice_ids_by_merchant(merchant)
+
+    invoice_items = sales_engine.collect_invoice_items(paid_invoice_ids).flatten
+
+    items = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    results = items.map do |item_id, items|
+      [items.map(&:quantity).map(&:to_i).reduce(:+), item_id]
+    end.sort.reverse
+
+    items_with_counts = results.chunk_while do |i, j|
+      i.first == j.first
+    end.first
+
+    item_ids = items_with_counts.map do |array|
+      array.last
+    end
+
+    sales_engine.collect_items(item_ids)
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant = sales_engine.find_merchant_by_id(merchant_id)
+    paid_invoice_ids = paid_invoice_ids_by_merchant(merchant)
+    invoice_items = sales_engine.collect_invoice_items(paid_invoice_ids).flatten
+    items = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+
+    the_end = items.map do |item_id, items|
+      [ (items.map(&:quantity).map(&:to_f) * items.first.unit_price ).reduce(:+), item_id]
+    end.sort.reverse.first.last
+    # binding.pry
+
+
+    
+    item = sales_engine.items.find_by_id(the_end)
+    return item
+  end
 end

@@ -32,6 +32,12 @@ module Collector
     end
   end
 
+  def collect_invoice_items(invoice_ids)
+    invoice_ids.map do |id|
+      invoice_items.find_all_by_invoice_id(id)
+    end
+  end
+
   def collect_merchants(merchant_ids)
     merchant_ids.map do |id|
       merchants.find_by_id(id)

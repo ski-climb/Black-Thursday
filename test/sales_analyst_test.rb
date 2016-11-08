@@ -114,6 +114,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_merchants_who_only_sold_one_item_in_a_given_month_of_the_year
+    # skip
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :items => './data/items.csv'
@@ -121,9 +122,40 @@ class SalesAnalystTest < Minitest::Test
     analyst = SalesAnalyst.new(sales_engine)
     month = "March"
     results = analyst.merchants_with_only_one_item_registered_in_month(month)
-    # binding.pry
     assert results
     assert_instance_of Merchant, results.first
     assert_equal 21, results.length
+  end
+
+  def test_it_returns_the_most_sold_item_by_merchant
+    # skip
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :merchants => './data/merchants.csv',
+      :items => './data/items.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    merchant_id = 12334146
+    results = analyst.most_sold_item_for_merchant(merchant_id)
+    assert results
+    assert_instance_of Item, results.first
+  end
+
+  def test_it_returns_the_best_item_for_merchant
+    # skip
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :merchants => './data/merchants.csv',
+      :items => './data/items.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    merchant_id = 12334146
+    results = analyst.best_item_for_merchant(merchant_id)
+    assert results
+    assert_instance_of Item, results
   end
 end

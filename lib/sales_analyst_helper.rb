@@ -12,6 +12,10 @@ module SalesAnalystHelper
     sales_engine.invoices.all
   end
 
+  def all_invoice_items
+    sales_engine.invoice_items.all
+  end
+
   def total_number_of_items
     all_items.count
   end
@@ -55,6 +59,7 @@ module SalesAnalystHelper
   end
 
   def invoice_count_by_day_of_week
+    # TODO can I do this sexier?
     result = {}
     invoices_sorted_by_day_of_week.each do |key, value|
       result[@weekdays[key]] = value.length
@@ -156,5 +161,11 @@ module SalesAnalystHelper
     all_merchants.sort_by do |merchant|
       revenue_by_merchant(merchant.id).to_f
     end.reverse
+  end
+
+  def paid_invoice_ids_by_merchant(merchant)
+    paid_invoices_ids = merchant.invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end.map(&:id)
   end
 end
