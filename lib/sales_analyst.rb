@@ -99,4 +99,10 @@ class SalesAnalyst
       merchant.has_pending_invoice?
     end
   end
+
+  def merchants_with_only_one_item
+    all_merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
 end

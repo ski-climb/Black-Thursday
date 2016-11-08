@@ -59,7 +59,7 @@ class SalesEngine
   end
 
   def self.total_cost_of_all_items_on_invoice(invoice_id)
-    # TODO 
+    # TODO
     # the second half of this method should be broken out
     find_all_invoice_items_by_invoice_id(invoice_id)
     .map do |invoice_item|
