@@ -47,7 +47,5 @@ class InvoiceRepository
     end
   end
 
-
-
   def inspect; end
 end

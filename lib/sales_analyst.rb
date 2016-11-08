@@ -94,9 +94,9 @@ class SalesAnalyst
     .take(number_of_merchants)
   end
 
-  def merchants_ranked_by_revenue
-    all_merchants.sort_by do |merchant|
-      revenue_by_merchant(merchant.id).to_f
-    end.reverse
+  def merchants_with_pending_invoices
+    all_merchants.find_all do |merchant|
+      merchant.has_pending_invoice?
+    end
   end
 end

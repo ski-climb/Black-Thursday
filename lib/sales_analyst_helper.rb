@@ -151,4 +151,10 @@ module SalesAnalystHelper
     end
     .reduce(:+)
   end
+
+  def merchants_ranked_by_revenue
+    all_merchants.sort_by do |merchant|
+      revenue_by_merchant(merchant.id).to_f
+    end.reverse
+  end
 end

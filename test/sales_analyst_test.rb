@@ -87,4 +87,16 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, results.first
     assert_equal 20, results.count
   end
+
+  def test_it_returns_all_merchants_with_invoices_which_are_pending
+    sales_engine = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :merchants => './data/merchants.csv',
+      :transactions => './data/transactions.csv'
+    })
+    analyst = SalesAnalyst.new(sales_engine)
+    results = analyst.merchants_with_pending_invoices
+    assert_equal 467, results.count
+    assert_instance_of Merchant, results.first
+  end
 end

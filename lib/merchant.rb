@@ -23,4 +23,10 @@ class Merchant
   def customers
     sales_engine.find_customers_by_merchant_id(id)
   end
+
+  def has_pending_invoice?
+    invoices.any? do |invoice|
+      !invoice.is_paid_in_full?
+    end
+  end
 end
