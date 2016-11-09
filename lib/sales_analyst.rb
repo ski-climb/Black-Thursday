@@ -112,14 +112,14 @@ class SalesAnalyst
   end
 
   def merchants_created_in_month(month)
-    merchants = all_merchants.find_all do |merchant|
+    all_merchants.find_all do |merchant|
       merchant.created_at_month == month
     end
   end
 
   def items_ordered_by_quantity_sold(items)
-    items.map do |item_id, items|
-      [items.map(&:quantity).map(&:to_i).reduce(:+), item_id]
+    items.map do |item_id, item|
+      [item.map(&:quantity).map(&:to_i).reduce(:+), item_id]
     end.sort.reverse
   end
 
@@ -127,7 +127,7 @@ class SalesAnalyst
     items_with_counts = ordered_items.chunk_while do |i, j|
       i.first == j.first
     end.first
-    item_ids = items_with_counts.map do |array|
+    items_with_counts.map do |array|
       array.last
     end
   end
@@ -136,7 +136,7 @@ class SalesAnalyst
     merchant = sales_engine.find_merchant_by_id(merchant_id)
     paid_invoice_ids = paid_invoice_ids_by_merchant(merchant)
     invoice_items = sales_engine.collect_invoice_items(paid_invoice_ids).flatten
-    items = invoice_items.group_by do |invoice_item|
+    invoice_items.group_by do |invoice_item|
       invoice_item.item_id
     end
   end
@@ -157,8 +157,8 @@ class SalesAnalyst
     end
 
 
-    the_end = items.map do |item_id, items|
-      [ (items.map(&:quantity).map(&:to_f) * items.first.unit_price ).reduce(:+), item_id]
+    the_end = items.map do |item_id, item|
+      [ (item.map(&:quantity).map(&:to_f) * item.first.unit_price ).reduce(:+), item_id]
     end.sort.reverse.first.last
     # binding.pry
     
