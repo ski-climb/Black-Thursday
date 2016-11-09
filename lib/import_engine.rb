@@ -9,39 +9,37 @@ module ImportEngine
     import_invoice_items(data[:invoice_items]) if data[:invoice_items]
   end
 
+  def contents(path_and_filename)
+    Importer.read_file(path_and_filename)
+  end
+
   def import_merchants(path_and_filename)
     @all_merchants = MerchantRepository.new(self)
-    contents = Importer.read_file(path_and_filename)
-    @all_merchants.add_merchants(contents)
+    @all_merchants.add_merchants(contents(path_and_filename))
   end
 
   def import_items(path_and_filename)
     @all_items = ItemRepository.new(self)
-    contents = Importer.read_file(path_and_filename)
-    @all_items.add_items(contents)
+    @all_items.add_items(contents(path_and_filename))
   end
 
   def import_invoices(path_and_filename)
     @all_invoices = InvoiceRepository.new(self)
-    contents = Importer.read_file(path_and_filename)
-    @all_invoices.add_invoices(contents)
+    @all_invoices.add_invoices(contents(path_and_filename))
   end
 
   def import_transactions(path_and_filename)
     @all_transactions = TransactionRepository.new(self)
-    contents = Importer.read_file(path_and_filename)
-    @all_transactions.add_transactions(contents)
+    @all_transactions.add_transactions(contents(path_and_filename))
   end
 
   def import_customers(path_and_filename)
     @all_customers = CustomerRepository.new(self)
-    contents = Importer.read_file(path_and_filename)
-    @all_customers.add_customers(contents)
+    @all_customers.add_customers(contents(path_and_filename))
   end
 
   def import_invoice_items(path_and_filename)
     @all_invoice_items = InvoiceItemRepository.new(self)
-    contents = Importer.read_file(path_and_filename)
-    @all_invoice_items.add_invoice_items(contents)
+    @all_invoice_items.add_invoice_items(contents(path_and_filename))
   end
 end
