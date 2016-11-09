@@ -108,36 +108,43 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
+    merchants_created_in_month(month) & merchants_with_only_one_item
+  end
+
+  def merchants_created_in_month(month)
     merchants = all_merchants.find_all do |merchant|
       merchant.created_at_month == month
     end
-    merchants & merchants_with_only_one_item
   end
 
-  def most_sold_item_for_merchant(merchant_id)
-    #TODO refactor!!
-    merchant = sales_engine.find_merchant_by_id(merchant_id)
-
-    paid_invoice_ids = paid_invoice_ids_by_merchant(merchant)
-
-    invoice_items = sales_engine.collect_invoice_items(paid_invoice_ids).flatten
-
-    items = invoice_items.group_by do |invoice_item|
-      invoice_item.item_id
-    end
-
-    results = items.map do |item_id, items|
+  def items_ordered_by_quantity_sold(items)
+    items.map do |item_id, items|
       [items.map(&:quantity).map(&:to_i).reduce(:+), item_id]
     end.sort.reverse
+  end
 
-    items_with_counts = results.chunk_while do |i, j|
+  def highest_selling_item_ids(ordered_items)
+    items_with_counts = ordered_items.chunk_while do |i, j|
       i.first == j.first
     end.first
-
     item_ids = items_with_counts.map do |array|
       array.last
     end
+  end
 
+  def paid_items_by_merchant(merchant_id)
+    merchant = sales_engine.find_merchant_by_id(merchant_id)
+    paid_invoice_ids = paid_invoice_ids_by_merchant(merchant)
+    invoice_items = sales_engine.collect_invoice_items(paid_invoice_ids).flatten
+    items = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    items = paid_items_by_merchant(merchant_id)
+    ordered_items = items_ordered_by_quantity_sold(items)
+    item_ids = highest_selling_item_ids(ordered_items)
     sales_engine.collect_items(item_ids)
   end
 
@@ -154,8 +161,6 @@ class SalesAnalyst
       [ (items.map(&:quantity).map(&:to_f) * items.first.unit_price ).reduce(:+), item_id]
     end.sort.reverse.first.last
     # binding.pry
-
-
     
     item = sales_engine.items.find_by_id(the_end)
     return item
