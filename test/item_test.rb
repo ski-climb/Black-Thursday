@@ -12,7 +12,7 @@ class ItemTest < Minitest::Test
     item_unit_price = 7500
     item_created_at = '2013-03-27 14:54:09 UTC'
     item_updated_at = '2012-02-26 20:56:56 UTC'
-    sales_engine = SalesEngine
+    @sales_engine = Minitest::Mock.new
     @item = Item.new({
       :id => item_id,
       :name => item_name,
@@ -21,7 +21,7 @@ class ItemTest < Minitest::Test
       :unit_price => item_unit_price,
       :created_at => item_created_at,
       :updated_at => item_updated_at
-    }, sales_engine)
+    }, @sales_engine)
   end
 
   def test_it_has_an_id
@@ -67,10 +67,17 @@ class ItemTest < Minitest::Test
   end
 
   def test_items_point_to_sales_engine
-    assert_kind_of Class, @item.sales_engine
+    assert @item.sales_engine
   end
 
-  def test_items_respond_to_merchant_method
+  def test_items_respond_to_merchant
     assert_respond_to @item, :merchant
+  end
+
+  def test_it_has_a_merchant
+    merchant = Minitest::Mock.new
+    @sales_engine.expect(:find_merchant_by_id, [merchant], [12334141])
+    @item.merchant
+    @sales_engine.verify
   end
 end

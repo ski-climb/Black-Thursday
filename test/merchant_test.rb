@@ -58,4 +58,25 @@ class MerchantTest < Minitest::Test
     @merchant.has_pending_invoice?
     invoice.verify
   end
+
+  def test_it_has_customers
+    customer = Minitest::Mock.new
+    @sales_engine.expect(:find_customers_by_merchant_id, [customer], [@merchant.id])
+    @merchant.customers
+    @sales_engine.verify
+  end
+
+  def test_it_has_invoices
+    invoice = Minitest::Mock.new
+    @sales_engine.expect(:find_invoices_by_merchant_id, [invoice], [@merchant.id])
+    @merchant.invoices
+    @sales_engine.verify
+  end
+
+  def test_it_has_items
+    item = Minitest::Mock.new
+    @sales_engine.expect(:find_items_by_merchant_id, [item], [@merchant.id])
+    @merchant.items
+    @sales_engine.verify
+  end
 end
