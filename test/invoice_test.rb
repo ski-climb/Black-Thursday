@@ -11,7 +11,7 @@ class InvoiceTest < Minitest::Test
     invoice_status = "pending"
     invoice_created_at = '2013-03-27'
     invoice_updated_at = '2012-02-26'
-    sales_engine = Minitest::Mock.new
+    @sales_engine = Minitest::Mock.new
     @invoice = Invoice.new({
       :id => invoice_id,
       :customer_id => invoice_customer_id,
@@ -19,7 +19,7 @@ class InvoiceTest < Minitest::Test
       :status => invoice_status,
       :created_at => invoice_created_at,
       :updated_at => invoice_updated_at
-    }, sales_engine)
+    }, @sales_engine)
   end
 
   def test_invoice_has_an_id
@@ -56,16 +56,44 @@ class InvoiceTest < Minitest::Test
     assert_respond_to @invoice, :merchant
   end
 
+  def test_it_has_a_merchant
+    merchant = Minitest::Mock.new
+    @sales_engine.expect(:find_merchant_by_id, [merchant], [8])
+    @invoice.merchant
+    @sales_engine.verify
+  end
+
   def test_it_responds_to_transactions
     assert_respond_to @invoice, :transactions
+  end
+
+  def test_it_has_transactions
+    transaction = Minitest::Mock.new
+    @sales_engine.expect(:find_transactions_by_invoice_id, [transaction], [@invoice.id])
+    @invoice.transactions
+    @sales_engine.verify
   end
 
   def test_it_responds_to_customer
     assert_respond_to @invoice, :customer
   end
 
+  def test_it_has_a_customer
+    customer = Minitest::Mock.new
+    @sales_engine.expect(:find_customer_by_id, [customer], [7])
+    @invoice.customer
+    @sales_engine.verify
+  end
+
   def test_it_responds_to_items
     assert_respond_to @invoice, :items
+  end
+
+  def test_it_has_items
+    item = Minitest::Mock.new
+    @sales_engine.expect(:find_items_by_invoice_id, [item], [@invoice.id])
+    @invoice.items
+    @sales_engine.verify
   end
 
   def test_it_responds_to_is_paid_in_full
@@ -74,5 +102,12 @@ class InvoiceTest < Minitest::Test
 
   def test_it_responds_to_total
     assert_respond_to @invoice, :total
+  end
+
+  def test_it_has_a_total
+    total = Minitest::Mock.new
+    @sales_engine.expect(:successfully_charged_total_for_invoice, [total], [@invoice.id])
+    @invoice.total
+    @sales_engine.verify
   end
 end

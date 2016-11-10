@@ -11,7 +11,7 @@ class TransactionTest < Minitest::Test
     transaction_result = "success"
     transaction_created_at = '2013-03-27 14:54:09 UTC'
     transaction_updated_at = '2012-02-26 20:56:56 UTC'
-    sales_engine = Minitest::Mock.new
+    @sales_engine = Minitest::Mock.new
     @transaction = Transaction.new({
       :id => transaction_id,
       :invoice_id => transaction_invoice_id,
@@ -20,7 +20,7 @@ class TransactionTest < Minitest::Test
       :result => transaction_result,
       :created_at => transaction_created_at,
       :updated_at => transaction_updated_at
-    }, sales_engine)
+    }, @sales_engine)
   end
 
   def test_transaction_has_an_id
@@ -49,6 +49,13 @@ class TransactionTest < Minitest::Test
 
   def test_it_responds_to_invoice
     assert_respond_to @transaction, :invoice
+  end
+
+  def test_it_has_an_invoice
+    invoice = Minitest::Mock.new
+    @sales_engine.expect(:find_invoice_by_id, [invoice], [8])
+    @transaction.invoice
+    @sales_engine.verify
   end
 
   def test_it_has_a_created_at

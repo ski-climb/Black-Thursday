@@ -23,5 +23,4 @@ class Transaction
   def invoice
     sales_engine.find_invoice_by_id(invoice_id)
   end
-
 end
