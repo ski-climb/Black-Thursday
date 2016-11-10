@@ -6,13 +6,13 @@ class MerchantTest < Minitest::Test
   def setup
     merchant_id = 12345678
     merchant_name = "IronCompassFlight"
-    sales_engine = SalesEngine
+    @sales_engine = Minitest::Mock.new
     @merchant = Merchant.new({
       :id => merchant_id,
       :name => merchant_name,
       :created_at => '2009-05-30',
       :updated_at => '2012-07-25'
-    }, sales_engine)
+    }, @sales_engine)
   end
 
   def test_it_has_ids
@@ -32,7 +32,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_points_to_the_sales_engine
-    assert_kind_of Class, @merchant.sales_engine
+    assert_respond_to @merchant, :sales_engine
   end
 
   def test_it_responds_to_items_method
@@ -43,11 +43,19 @@ class MerchantTest < Minitest::Test
     assert_respond_to @merchant, :invoices
   end
 
-  def test_it_responds_to_custoomers
+  def test_it_responds_to_customers
     assert_respond_to @merchant, :customers
   end
 
   def test_it_has_created_at_month
     assert_equal "May", @merchant.created_at_month
+  end
+
+  def test_it_has_pending_invoices
+    invoice = Minitest::Mock.new
+    invoice.expect(:is_paid_in_full?, true, [])
+    @sales_engine.expect(:find_invoices_by_merchant_id, [invoice], [@merchant.id])
+    @merchant.has_pending_invoice?
+    invoice.verify
   end
 end

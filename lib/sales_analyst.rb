@@ -141,7 +141,14 @@ class SalesAnalyst
     end
   end
 
+  def highest_revenue_item_id(items)
+    items.map do |item_id, item|
+      [(item.map(&:quantity).map(&:to_f) * item.first.unit_price).reduce(:+), item_id]
+    end.sort.reverse.first.last
+  end
+
   def most_sold_item_for_merchant(merchant_id)
+    # merchant
     items = paid_items_by_merchant(merchant_id)
     ordered_items = items_ordered_by_quantity_sold(items)
     item_ids = highest_selling_item_ids(ordered_items)
@@ -149,20 +156,8 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    merchant = sales_engine.find_merchant_by_id(merchant_id)
-    paid_invoice_ids = paid_invoice_ids_by_merchant(merchant)
-    invoice_items = sales_engine.collect_invoice_items(paid_invoice_ids).flatten
-    items = invoice_items.group_by do |invoice_item|
-      invoice_item.item_id
-    end
-
-
-    the_end = items.map do |item_id, item|
-      [ (item.map(&:quantity).map(&:to_f) * item.first.unit_price ).reduce(:+), item_id]
-    end.sort.reverse.first.last
-    # binding.pry
-    
-    item = sales_engine.items.find_by_id(the_end)
-    return item
+    items = paid_items_by_merchant(merchant_id)
+    item_id = highest_revenue_item_id(items)
+    sales_engine.items.find_by_id(item_id)
   end
 end

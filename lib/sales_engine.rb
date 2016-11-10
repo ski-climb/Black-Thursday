@@ -63,7 +63,7 @@ class SalesEngine
     total_cost_of_invoice_items(invoice_items)
   end
 
-  def total_cost_of_invoice_items(invoice_items)
+  def self.total_cost_of_invoice_items(invoice_items)
     invoice_items.map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity.to_i
     end.reduce(:+)
