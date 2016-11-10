@@ -6,7 +6,7 @@ require_relative '../lib/sales_engine'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @sales_engine = SalesEngine
+    @sales_engine = Minitest::Mock.new
     @invoice_repository = InvoiceRepository.new(@sales_engine)
     @invoice_1 = Invoice.new({
       :id          => 1234,

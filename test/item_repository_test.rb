@@ -5,7 +5,7 @@ require_relative '../lib/item'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @sales_engine = SalesEngine
+    @sales_engine = Minitest::Mock.new
     @item_repository = ItemRepository.new(@sales_engine)
     @item_1 = Item.new({
       :id => 1,

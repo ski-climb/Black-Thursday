@@ -5,7 +5,7 @@ require_relative '../lib/merchant'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @sales_engine = SalesEngine
+    @sales_engine = Minitest::Mock.new
     @merchant_repository = MerchantRepository.new(@sales_engine)
     merchant_1 = Merchant.new({
       :id => 1, 
