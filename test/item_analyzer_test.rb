@@ -8,7 +8,6 @@ require_relative '../lib/item_repository'
 class ItemAnalyzerTest < Minitest::Test
 
   def test_it_can_import_the_provided_file_for_items
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -29,7 +28,6 @@ class ItemAnalyzerTest < Minitest::Test
   end
 
   def test_it_finds_the_golden_items
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'

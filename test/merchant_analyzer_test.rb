@@ -8,7 +8,6 @@ require_relative '../lib/item_repository'
 class MerchantAnalyzerTest < Minitest::Test
 
   def test_it_can_import_the_provided_file_for_merchants
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -40,7 +39,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_average_items_per_merchant_using_provided_data
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -50,7 +48,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_average_items_per_merchant_standard_deviation_using_provided_data
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -60,7 +57,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_merchants_with_high_item_count_using_provided_data
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -71,7 +67,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_average_average_price_per_merchant
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :items =>     './data/items.csv',
       :merchants => './data/merchants.csv'
@@ -82,7 +77,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_top_merchants_by_invoice_count
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
@@ -94,7 +88,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_bottom_merchants_by_invoice_count
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
@@ -106,7 +99,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_average_invoices_per_merchant
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
@@ -116,7 +108,6 @@ class MerchantAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_average_invoices_per_merchant_standard_deviation
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'

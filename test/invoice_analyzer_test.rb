@@ -7,7 +7,6 @@ require_relative '../lib/merchant_repository'
 class InvoiceAnalyzerTest < Minitest::Test
 
   def test_it_can_import_the_provided_file_for_invoices
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv'
     })
@@ -53,7 +52,6 @@ class InvoiceAnalyzerTest < Minitest::Test
   end
 
   def test_it_calculates_top_days_by_invoice_count
-    # skip "for speed!"
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv'
     })

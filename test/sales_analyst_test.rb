@@ -15,36 +15,30 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_exists
-    # skip
     sales_engine = SalesEngine
     assert SalesAnalyst.new(sales_engine)
   end
 
   def test_it_calculates_average_items_per_merchant
-    # skip
     assert_equal 0.38, @fixture_analyst.average_items_per_merchant
   end
 
   def test_it_calculates_average_items_per_merchant_standard_deviation
-    # skip
     assert_equal 1.25, @fixture_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_it_calculates_merchants_with_high_item_count
-    # skip
     merchant = @sales_engine.merchants.find_by_id(12341234)
     assert_equal [merchant], @fixture_analyst.merchants_with_high_item_count
   end
 
   def test_it_calculates_average_item_price_for_merchant
-    # skip
     merchant_id = 12341234
     assert_equal 141.42, @fixture_analyst.average_item_price_for_merchant(merchant_id).to_f
     assert_instance_of BigDecimal, @fixture_analyst.average_item_price_for_merchant(merchant_id)
   end
 
   def test_it_calculates_total_revenue_by_date
-    # skip
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv',
       :invoice_items => './data/invoice_items.csv',
@@ -57,7 +51,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_top_X_merchants_based_on_revenue
-    # skip
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv',
       :invoice_items => './data/invoice_items.csv',
@@ -75,7 +68,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_top_20_merchants_based_on_revenue_when_no_argument_given
-    # skip
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv',
       :invoice_items => './data/invoice_items.csv',
@@ -89,7 +81,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_all_merchants_with_invoices_which_are_pending
-    # skip
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv',
       :merchants => './data/merchants.csv',
@@ -102,7 +93,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_all_merchants_with_only_one_item_for_sale
-    # skip
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv'
     })
@@ -114,7 +104,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_merchants_who_only_sold_one_item_in_a_given_month_of_the_year
-    # skip
     sales_engine = SalesEngine.from_csv({
       :merchants => './data/merchants.csv',
       :items => './data/items.csv'
@@ -128,7 +117,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_most_sold_item_by_merchant
-    # skip
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv',
       :invoice_items => './data/invoice_items.csv',
@@ -144,7 +132,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_the_best_item_for_merchant
-    # skip
     sales_engine = SalesEngine.from_csv({
       :invoices => './data/invoices.csv',
       :invoice_items => './data/invoice_items.csv',
